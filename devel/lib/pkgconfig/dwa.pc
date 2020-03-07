@@ -1,0 +1,8 @@
+prefix=/home/siddhesh/warehouse_sim/warehouse_dwa/devel
+
+Name: dwa
+Description: Description of dwa
+Version: 0.0.0
+Cflags: -I/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include
+Libs: -L/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib 
+Requires: message_runtime

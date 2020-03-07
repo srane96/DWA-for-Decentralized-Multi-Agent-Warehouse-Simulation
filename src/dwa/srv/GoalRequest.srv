@@ -1,0 +1,5 @@
+string bot_name
+---
+int64 goal_x
+int64 goal_y
+bool success
