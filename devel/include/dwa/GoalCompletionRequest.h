@@ -25,11 +25,11 @@ struct GoalCompletionRequest_
 
   GoalCompletionRequest_()
     : bot_name()
-    , stamp()  {
+    , total_time(0.0)  {
     }
   GoalCompletionRequest_(const ContainerAllocator& _alloc)
     : bot_name(_alloc)
-    , stamp()  {
+    , total_time(0.0)  {
   (void)_alloc;
     }
 
@@ -38,8 +38,8 @@ struct GoalCompletionRequest_
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _bot_name_type;
   _bot_name_type bot_name;
 
-   typedef ros::Time _stamp_type;
-  _stamp_type stamp;
+   typedef double _total_time_type;
+  _total_time_type total_time;
 
 
 
@@ -119,12 +119,12 @@ struct MD5Sum< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "b2eb1c8aa8520eb8bd4c9c6723dd484a";
+    return "37e2075fb9194b01cef6051f6458123b";
   }
 
   static const char* value(const ::dwa::GoalCompletionRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xb2eb1c8aa8520eb8ULL;
-  static const uint64_t static_value2 = 0xbd4c9c6723dd484aULL;
+  static const uint64_t static_value1 = 0x37e2075fb9194b01ULL;
+  static const uint64_t static_value2 = 0xcef6051f6458123bULL;
 };
 
 template<class ContainerAllocator>
@@ -144,7 +144,7 @@ struct Definition< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "string bot_name\n\
-time stamp\n\
+float64 total_time\n\
 ";
   }
 
@@ -164,7 +164,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.bot_name);
-      stream.next(m.stamp);
+      stream.next(m.total_time);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -185,8 +185,8 @@ struct Printer< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
   {
     s << indent << "bot_name: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.bot_name);
-    s << indent << "stamp: ";
-    Printer<ros::Time>::stream(s, indent + "  ", v.stamp);
+    s << indent << "total_time: ";
+    Printer<double>::stream(s, indent + "  ", v.total_time);
   }
 };
 

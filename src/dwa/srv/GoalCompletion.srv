@@ -1,4 +1,5 @@
 string bot_name
-time stamp 
+string goal_name
+float64 total_time 
 ---
 bool success

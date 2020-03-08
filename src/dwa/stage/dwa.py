@@ -1,4 +1,15 @@
 #!/usr/bin/env python
+
+# Author: Connor McGuile
+# Feel free to use in any way.
+
+# A custom Dynamic Window Approach implementation for use with Turtlebot.
+# Obstacles are registered by a front-mounted laser and stored in a set.
+# If, for testing purposes or otherwise, you do not want the laser to be used,
+# disable the laserscan subscriber and create your own obstacle set in main(),
+# before beginning the loop. If you do not want obstacles, create an empty set.
+# Implentation based off Fox et al.'s paper, The Dynamic Window Approach to 
+# Collision Avoidance (1997).
 import rospy
 import math
 import numpy as np
@@ -7,7 +18,7 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from tf.transformations import euler_from_quaternion
 import time
-from dwa.srv import GoalRequest, GoalRequestRequest, GoalCompletion, GoalCompletionRequest
+
 class Config():
     # simulation parameters
 
@@ -15,10 +26,10 @@ class Config():
         # robot parameter
         #NOTE good params:
         #NOTE 0.55,0.1,1.0,1.6,3.2,0.15,0.05,0.1,1.7,2.4,0.1,3.2,0.18
-        self.max_speed = 0.55  # [m/s]
-        self.min_speed = 0.1  # [m/s]
+        self.max_speed = 0.65  # [m/s]
+        self.min_speed = 0.0  # [m/s]
         self.max_yawrate = 1.0  # [rad/s]
-        self.max_accel = 1.6  # [m/ss]
+        self.max_accel = 2.5  # [m/ss]
         self.max_dyawrate = 3.2  # [rad/ss]
         self.v_reso = 0.15  # [m/s]
         self.yawrate_reso = 0.05  # [rad/s]
@@ -28,19 +39,13 @@ class Config():
         self.speed_cost_gain = 0.1 #lower = faster
         self.obs_cost_gain = 3.2 #lower z= fearless
         self.robot_radius = 0.15  # [m]
-        self.orig_x = 0
-        self.orig_y = -3.0
         self.x = 0.0
-        self.y = -3.0
+        self.y = 0.0
         self.th = 0.0
-        self.goalX = self.x  
-        self.goalY = self.y
-        self.goal_name = ""
+        self.goalX = 0.0
+        self.goalY = 0.0
         self.r = rospy.Rate(20)
-        self.busy = False
-        self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
-        self.job_start = 0.0;
-        self.job_end = 0.0;
+
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -51,29 +56,12 @@ class Config():
             euler_from_quaternion ([rot_q.x,rot_q.y,rot_q.z,rot_q.w])
         self.th = theta
 
+       
+
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
         self.goalX = msg.point.x
         self.goalY = msg.point.y
-
-    def goalServiceRequeset(self, name):
-        rospy.wait_for_service('task_assign')
-        print("Service available for ", name)
-        try:
-            goalCoord = rospy.ServiceProxy('task_assign',GoalRequest)
-            response = goalCoord(name)
-            return response
-        except rospy.ServiceException, e:
-            print "Service call failed: %s"%e
-
-    def goalCompleteRequest(self, name, time):
-        rospy.wait_for_service('goal_complete')
-        try:
-            goalComplete = rospy.ServiceProxy('goal_complete',GoalCompletion)
-            response = goalComplete(name, time)
-            return response
-        except rospy.ServiceException, e:
-            print "Service call failed: %s"%e
 
 class Obstacles():
     def __init__(self):
@@ -97,7 +85,7 @@ class Obstacles():
         self.obst = set()   # reset the obstacle set to only keep visible objects
 
         maxAngle = 270
-        scanSkip = 5
+        scanSkip = 4
         anglePerSlot = (float(maxAngle) / deg) * scanSkip
         angleCount = 0
         angleValuePos = 0
@@ -154,7 +142,7 @@ class Obstacles():
                 
                     
 
-                #print("The angle is {}".format(objTheta * 180 / 3.14))
+                print("The angle is {}".format(objTheta * 180 / 3.14))
 
 
 
@@ -318,15 +306,15 @@ def atGoal(config, x):
 
 
 def main():
-    #print(__file__ + " start!!")
+    print(__file__ + " start!!")
     # robot specification
     config = Config()
     # position of obstacles
     obs = Obstacles()
-    subOdom = rospy.Subscriber("/robot_0/odom", Odometry, config.assignOdomCoords)
-    subLaser = rospy.Subscriber("/robot_0/base_scan", LaserScan, obs.assignObs, config)
-    #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
-    pub = rospy.Publisher("/robot_0/cmd_vel", Twist, queue_size=1)
+    subOdom = rospy.Subscriber("/turtlebot/odom", Odometry, config.assignOdomCoords)
+    subLaser = rospy.Subscriber("/turtlebot/scan", LaserScan, obs.assignObs, config)
+    subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
+    pub = rospy.Publisher("/turtlebot/cmd_vel_mux/input/navi", Twist, queue_size=1)
     speed = Twist()
     # initial state [x(m), y(m), theta(rad), v(m/s), omega(rad/s)]
     x = np.array([config.x, config.y, config.th, 0.0, 0.0])
@@ -336,9 +324,9 @@ def main():
     # runs until terminated externally
     while not rospy.is_shutdown():
         if (atGoal(config,x) == False):
-            #start_time = time.time()
+            start_time = time.time()
             u = dwa_control(x, u, config, obs.obst)
-            #print("Time to calculate a single pass through DWA {}".format(time.time() - start_time))
+            print("Time to calculate a single pass through DWA {}".format(time.time() - start_time))
             x[0] = config.x
             x[1] = config.y
             x[2] = config.th
@@ -348,33 +336,10 @@ def main():
             speed.angular.z = x[4]
         else:
             # if at goal then stay there until new goal published
-            config.job_end = time.time()
             speed.linear.x = 0.0
             speed.angular.z = 0.0
-            config.busy = False
-            if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r1',config.job_end - config.job_start)
-                config.canSendCompletionRequest = False
 
-        #print(config.x, " " , config.y)
-        if not config.busy:
-            pub.publish(speed)
-            #time.sleep(5)
-            goalCoord = config.goalServiceRequeset('r1')
-            if goalCoord.success:
-                print("Goal x:", goalCoord.goal_x, "Goal y:", goalCoord.goal_y)
-                print("Time: ", goalCoord.stamp.secs)
-                config.goalX = goalCoord.goal_x - config.orig_x
-                config.goalY = goalCoord.goal_y - config.orig_y
-                config.goal_name = goalCoord.goal_name
-                config.busy = True
-                #config.goalReached = False
-                config.canSendCompletionRequest = True
-                config.job_start = time.time()
-            else:
-                print("No jobs available currently")
         pub.publish(speed)
-        #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 
 

@@ -1,0 +1,5 @@
+<launch>
+	<node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
+	<node name="central_server" pkg="dwa" type="central_server.py" output="screen"/>
+	<node name="rob1" pkg="dwa" type="rob1.py" output="screen"/>
+</launch>

@@ -20,30 +20,30 @@
 
 (defclass dwa::GoalCompletionRequest
   :super ros::object
-  :slots (_bot_name _stamp ))
+  :slots (_bot_name _total_time ))
 
 (defmethod dwa::GoalCompletionRequest
   (:init
    (&key
     ((:bot_name __bot_name) "")
-    ((:stamp __stamp) (instance ros::time :init))
+    ((:total_time __total_time) 0.0)
     )
    (send-super :init)
    (setq _bot_name (string __bot_name))
-   (setq _stamp __stamp)
+   (setq _total_time (float __total_time))
    self)
   (:bot_name
    (&optional __bot_name)
    (if __bot_name (setq _bot_name __bot_name)) _bot_name)
-  (:stamp
-   (&optional __stamp)
-   (if __stamp (setq _stamp __stamp)) _stamp)
+  (:total_time
+   (&optional __total_time)
+   (if __total_time (setq _total_time __total_time)) _total_time)
   (:serialization-length
    ()
    (+
     ;; string _bot_name
     4 (length _bot_name)
-    ;; time _stamp
+    ;; float64 _total_time
     8
     ))
   (:serialize
@@ -52,16 +52,16 @@
               (make-string-output-stream (send self :serialization-length)))))
      ;; string _bot_name
        (write-long (length _bot_name) s) (princ _bot_name s)
-     ;; time _stamp
-       (write-long (send _stamp :sec) s) (write-long (send _stamp :nsec) s)
+     ;; float64 _total_time
+       (sys::poke _total_time (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
    ;; string _bot_name
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _bot_name (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
-   ;; time _stamp
-     (send _stamp :sec (sys::peek buf ptr- :integer)) (incf ptr- 4)  (send _stamp :nsec (sys::peek buf ptr- :integer)) (incf ptr- 4)
+   ;; float64 _total_time
+     (setq _total_time (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;;
    self)
   )
@@ -107,7 +107,7 @@
   :super ros::object
   :slots ())
 
-(setf (get dwa::GoalCompletion :md5sum-) "42e3abf21647402779ca4cba1b57445d")
+(setf (get dwa::GoalCompletion :md5sum-) "4b461984e2301fa44aff8b9f6f3d11e2")
 (setf (get dwa::GoalCompletion :datatype-) "dwa/GoalCompletion")
 (setf (get dwa::GoalCompletion :request) dwa::GoalCompletionRequest)
 (setf (get dwa::GoalCompletion :response) dwa::GoalCompletionResponse)
@@ -115,26 +115,26 @@
 (defmethod dwa::GoalCompletionRequest
   (:response () (instance dwa::GoalCompletionResponse :init)))
 
-(setf (get dwa::GoalCompletionRequest :md5sum-) "42e3abf21647402779ca4cba1b57445d")
+(setf (get dwa::GoalCompletionRequest :md5sum-) "4b461984e2301fa44aff8b9f6f3d11e2")
 (setf (get dwa::GoalCompletionRequest :datatype-) "dwa/GoalCompletionRequest")
 (setf (get dwa::GoalCompletionRequest :definition-)
       "string bot_name
-time stamp
+float64 total_time
 ---
 bool success
 ")
 
-(setf (get dwa::GoalCompletionResponse :md5sum-) "42e3abf21647402779ca4cba1b57445d")
+(setf (get dwa::GoalCompletionResponse :md5sum-) "4b461984e2301fa44aff8b9f6f3d11e2")
 (setf (get dwa::GoalCompletionResponse :datatype-) "dwa/GoalCompletionResponse")
 (setf (get dwa::GoalCompletionResponse :definition-)
       "string bot_name
-time stamp
+float64 total_time
 ---
 bool success
 ")
 
 
 
-(provide :dwa/GoalCompletion "42e3abf21647402779ca4cba1b57445d")
+(provide :dwa/GoalCompletion "4b461984e2301fa44aff8b9f6f3d11e2")
 
 
