@@ -26,11 +26,13 @@ struct GoalRequestResponse_
   GoalRequestResponse_()
     : goal_x(0)
     , goal_y(0)
+    , stamp()
     , success(false)  {
     }
   GoalRequestResponse_(const ContainerAllocator& _alloc)
     : goal_x(0)
     , goal_y(0)
+    , stamp()
     , success(false)  {
   (void)_alloc;
     }
@@ -42,6 +44,9 @@ struct GoalRequestResponse_
 
    typedef int64_t _goal_y_type;
   _goal_y_type goal_y;
+
+   typedef ros::Time _stamp_type;
+  _stamp_type stamp;
 
    typedef uint8_t _success_type;
   _success_type success;
@@ -124,12 +129,12 @@ struct MD5Sum< ::dwa::GoalRequestResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "0fef0002ac8ab89f12f4a92a7037d505";
+    return "7eaa95601f0ebd14a3fe76677258d5b0";
   }
 
   static const char* value(const ::dwa::GoalRequestResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0fef0002ac8ab89fULL;
-  static const uint64_t static_value2 = 0x12f4a92a7037d505ULL;
+  static const uint64_t static_value1 = 0x7eaa95601f0ebd14ULL;
+  static const uint64_t static_value2 = 0xa3fe76677258d5b0ULL;
 };
 
 template<class ContainerAllocator>
@@ -150,6 +155,7 @@ struct Definition< ::dwa::GoalRequestResponse_<ContainerAllocator> >
   {
     return "int64 goal_x\n\
 int64 goal_y\n\
+time stamp\n\
 bool success\n\
 ";
   }
@@ -171,6 +177,7 @@ namespace serialization
     {
       stream.next(m.goal_x);
       stream.next(m.goal_y);
+      stream.next(m.stamp);
       stream.next(m.success);
     }
 
@@ -194,6 +201,8 @@ struct Printer< ::dwa::GoalRequestResponse_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.goal_x);
     s << indent << "goal_y: ";
     Printer<int64_t>::stream(s, indent + "  ", v.goal_y);
+    s << indent << "stamp: ";
+    Printer<ros::Time>::stream(s, indent + "  ", v.stamp);
     s << indent << "success: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.success);
   }

@@ -17,11 +17,12 @@ const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
-class GoalRequestRequest {
+class GoalCompletionRequest {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.bot_name = null;
+      this.stamp = null;
     }
     else {
       if (initObj.hasOwnProperty('bot_name')) {
@@ -30,45 +31,56 @@ class GoalRequestRequest {
       else {
         this.bot_name = '';
       }
+      if (initObj.hasOwnProperty('stamp')) {
+        this.stamp = initObj.stamp
+      }
+      else {
+        this.stamp = {secs: 0, nsecs: 0};
+      }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
-    // Serializes a message object of type GoalRequestRequest
+    // Serializes a message object of type GoalCompletionRequest
     // Serialize message field [bot_name]
     bufferOffset = _serializer.string(obj.bot_name, buffer, bufferOffset);
+    // Serialize message field [stamp]
+    bufferOffset = _serializer.time(obj.stamp, buffer, bufferOffset);
     return bufferOffset;
   }
 
   static deserialize(buffer, bufferOffset=[0]) {
-    //deserializes a message object of type GoalRequestRequest
+    //deserializes a message object of type GoalCompletionRequest
     let len;
-    let data = new GoalRequestRequest(null);
+    let data = new GoalCompletionRequest(null);
     // Deserialize message field [bot_name]
     data.bot_name = _deserializer.string(buffer, bufferOffset);
+    // Deserialize message field [stamp]
+    data.stamp = _deserializer.time(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
     length += object.bot_name.length;
-    return length + 4;
+    return length + 12;
   }
 
   static datatype() {
     // Returns string type for a service object
-    return 'dwa/GoalRequestRequest';
+    return 'dwa/GoalCompletionRequest';
   }
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '538473db0cbbce885b1f9f383e540f13';
+    return 'b2eb1c8aa8520eb8bd4c9c6723dd484a';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     string bot_name
+    time stamp
     
     `;
   }
@@ -78,7 +90,7 @@ class GoalRequestRequest {
     if (typeof msg !== 'object' || msg === null) {
       msg = {};
     }
-    const resolved = new GoalRequestRequest(null);
+    const resolved = new GoalCompletionRequest(null);
     if (msg.bot_name !== undefined) {
       resolved.bot_name = msg.bot_name;
     }
@@ -86,38 +98,24 @@ class GoalRequestRequest {
       resolved.bot_name = ''
     }
 
+    if (msg.stamp !== undefined) {
+      resolved.stamp = msg.stamp;
+    }
+    else {
+      resolved.stamp = {secs: 0, nsecs: 0}
+    }
+
     return resolved;
     }
 };
 
-class GoalRequestResponse {
+class GoalCompletionResponse {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.goal_x = null;
-      this.goal_y = null;
-      this.stamp = null;
       this.success = null;
     }
     else {
-      if (initObj.hasOwnProperty('goal_x')) {
-        this.goal_x = initObj.goal_x
-      }
-      else {
-        this.goal_x = 0;
-      }
-      if (initObj.hasOwnProperty('goal_y')) {
-        this.goal_y = initObj.goal_y
-      }
-      else {
-        this.goal_y = 0;
-      }
-      if (initObj.hasOwnProperty('stamp')) {
-        this.stamp = initObj.stamp
-      }
-      else {
-        this.stamp = {secs: 0, nsecs: 0};
-      }
       if (initObj.hasOwnProperty('success')) {
         this.success = initObj.success
       }
@@ -128,53 +126,38 @@ class GoalRequestResponse {
   }
 
   static serialize(obj, buffer, bufferOffset) {
-    // Serializes a message object of type GoalRequestResponse
-    // Serialize message field [goal_x]
-    bufferOffset = _serializer.int64(obj.goal_x, buffer, bufferOffset);
-    // Serialize message field [goal_y]
-    bufferOffset = _serializer.int64(obj.goal_y, buffer, bufferOffset);
-    // Serialize message field [stamp]
-    bufferOffset = _serializer.time(obj.stamp, buffer, bufferOffset);
+    // Serializes a message object of type GoalCompletionResponse
     // Serialize message field [success]
     bufferOffset = _serializer.bool(obj.success, buffer, bufferOffset);
     return bufferOffset;
   }
 
   static deserialize(buffer, bufferOffset=[0]) {
-    //deserializes a message object of type GoalRequestResponse
+    //deserializes a message object of type GoalCompletionResponse
     let len;
-    let data = new GoalRequestResponse(null);
-    // Deserialize message field [goal_x]
-    data.goal_x = _deserializer.int64(buffer, bufferOffset);
-    // Deserialize message field [goal_y]
-    data.goal_y = _deserializer.int64(buffer, bufferOffset);
-    // Deserialize message field [stamp]
-    data.stamp = _deserializer.time(buffer, bufferOffset);
+    let data = new GoalCompletionResponse(null);
     // Deserialize message field [success]
     data.success = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 25;
+    return 1;
   }
 
   static datatype() {
     // Returns string type for a service object
-    return 'dwa/GoalRequestResponse';
+    return 'dwa/GoalCompletionResponse';
   }
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '7eaa95601f0ebd14a3fe76677258d5b0';
+    return '358e233cde0c8a8bcfea4ce193f8fc15';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    int64 goal_x
-    int64 goal_y
-    time stamp
     bool success
     
     `;
@@ -185,28 +168,7 @@ class GoalRequestResponse {
     if (typeof msg !== 'object' || msg === null) {
       msg = {};
     }
-    const resolved = new GoalRequestResponse(null);
-    if (msg.goal_x !== undefined) {
-      resolved.goal_x = msg.goal_x;
-    }
-    else {
-      resolved.goal_x = 0
-    }
-
-    if (msg.goal_y !== undefined) {
-      resolved.goal_y = msg.goal_y;
-    }
-    else {
-      resolved.goal_y = 0
-    }
-
-    if (msg.stamp !== undefined) {
-      resolved.stamp = msg.stamp;
-    }
-    else {
-      resolved.stamp = {secs: 0, nsecs: 0}
-    }
-
+    const resolved = new GoalCompletionResponse(null);
     if (msg.success !== undefined) {
       resolved.success = msg.success;
     }
@@ -219,8 +181,8 @@ class GoalRequestResponse {
 };
 
 module.exports = {
-  Request: GoalRequestRequest,
-  Response: GoalRequestResponse,
-  md5sum() { return 'be9923288e21a498f8a393f67472abcf'; },
-  datatype() { return 'dwa/GoalRequest'; }
+  Request: GoalCompletionRequest,
+  Response: GoalCompletionResponse,
+  md5sum() { return '42e3abf21647402779ca4cba1b57445d'; },
+  datatype() { return 'dwa/GoalCompletion'; }
 };

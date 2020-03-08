@@ -7,7 +7,7 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from tf.transformations import euler_from_quaternion
 import time
-from dwa.srv import GoalRequest, GoalRequestRequest
+from dwa.srv import GoalRequest, GoalRequestRequest, GoalCompletion, GoalCompletionRequest
 class Config():
     # simulation parameters
 
@@ -35,6 +35,7 @@ class Config():
         self.goalY = 0.0 
         self.r = rospy.Rate(20)
         self.busy = False
+        self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
 
     # Callback for Odometry
     def assignOdomCoords(self, msg):
@@ -57,6 +58,15 @@ class Config():
         try:
             goalCoord = rospy.ServiceProxy('task_assign',GoalRequest)
             response = goalCoord(name)
+            return response
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+
+    def goalCompleteRequest(self, name):
+        rospy.wait_for_service('goal_complete')
+        try:
+            goalComplete = rospy.ServiceProxy('goal_complete',GoalCompletion)
+            response = goalComplete(name, rospy.Time.now())
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -337,14 +347,21 @@ def main():
             speed.linear.x = 0.0
             speed.angular.z = 0.0
             config.busy = False
-        print(config.x, " " , config.y)
+            if config.canSendCompletionRequest:
+                goalComplete = config.goalCompleteRequest('r1')
+                config.canSendCompletionRequest = False
+
+        #print(config.x, " " , config.y)
         if not config.busy:
             goalCoord = config.goalServiceRequeset('r1')
             if goalCoord.success:
                 print("Goal x:", goalCoord.goal_x, "Goal y:", goalCoord.goal_y)
+                print("Time: ", goalCoord.stamp.secs)
                 config.goalX = goalCoord.goal_x
                 config.goalY = goalCoord.goal_y
                 config.busy = True
+                #config.goalReached = False
+                config.canSendCompletionRequest = True
             else:
                 print("No jobs available currently")
         pub.publish(speed)

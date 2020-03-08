@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalRequest.srv"
+services_str = "/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalRequest.srv;/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalCompletion.srv"
 pkg_name = "dwa"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

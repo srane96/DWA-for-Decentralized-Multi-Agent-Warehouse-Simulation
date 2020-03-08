@@ -226,6 +226,21 @@ dwa_generate_messages_cpp/fast:
 .PHONY : dwa_generate_messages_cpp/fast
 
 # Convenience name for target.
+dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
+.PHONY : dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
+
+# Convenience name for target.
+_dwa_generate_messages_check_deps_GoalCompletion: dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
+
+.PHONY : _dwa_generate_messages_check_deps_GoalCompletion
+
+# fast build rule for target.
+_dwa_generate_messages_check_deps_GoalCompletion/fast:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build
+.PHONY : _dwa_generate_messages_check_deps_GoalCompletion/fast
+
+# Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages.dir/rule:
 	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages.dir/rule
@@ -1102,11 +1117,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install/local"
 	@echo "... dwa_genpy"
 	@echo "... dwa_generate_messages_nodejs"
 	@echo "... dwa_generate_messages_lisp"
 	@echo "... dwa_generate_messages_cpp"
+	@echo "... install/local"
+	@echo "... _dwa_generate_messages_check_deps_GoalCompletion"
 	@echo "... dwa_generate_messages"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... dwa_generate_messages_eus"

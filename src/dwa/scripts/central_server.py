@@ -2,8 +2,8 @@
 import rospy
 import numpy as np 
 
-from dwa.srv import GoalRequest, GoalRequestResponse
 
+from dwa.srv import GoalRequest, GoalRequestResponse, GoalCompletion, GoalCompletionResponse
 # information of each robot
 class Robot():
 	def __init__(self):
@@ -21,7 +21,7 @@ class Server():
 
 		rospy.init_node('central_server')
 		self.service = rospy.Service('task_assign', GoalRequest, self.assign_task)
-
+		self.service = rospy.Service('goal_complete',GoalCompletion, self.goal_complete)
 	# service call request handling
 	def assign_task(self, req):
 		res = GoalRequestResponse()
@@ -33,6 +33,7 @@ class Server():
 			goal = self.goals[0]
 			res.goal_x = goal[0]
 			res.goal_y = goal[1]
+			res.stamp = rospy.Time(0)
 			res.success = True
 			self.goals.pop(0)
 			print("Goal assigned to ", req.bot_name, ": ", goal)
@@ -42,6 +43,15 @@ class Server():
 			print("Busy", self.busy_robots)	
 		return res
 
+	def goal_complete(self, req):
+		res = GoalCompletionResponse()
+		print(req.bot_name,"Completed goal")
+		self.free_robots.append(req.bot_name)
+		self.busy_robots.remove(req.bot_name)
+		print("Free", self.free_robots)
+		print("Busy", self.busy_robots)	
+		res.success = True
+		return res
 	# TODO: dynamically update the goals 
 	def update_goals(self):
 		return
@@ -55,5 +65,8 @@ if __name__ == "__main__":
 	# temp code. To be changed later on
 	server.free_robots.append('r1')
 	server.goals.append([2.0, 2.0])
+	server.goals.append([-2.0,-2.0])
+	server.goals.append([-1,1])
+	server.goals.append([1.5,0])
 	rospy.spin() # keeps your node alive.
 

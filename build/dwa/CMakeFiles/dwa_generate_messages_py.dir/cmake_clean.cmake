@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/dwa_generate_messages_py"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib/python2.7/dist-packages/dwa/srv/_GoalCompletion.py"
   "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib/python2.7/dist-packages/dwa/srv/_GoalRequest.py"
   "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib/python2.7/dist-packages/dwa/srv/__init__.py"
 )

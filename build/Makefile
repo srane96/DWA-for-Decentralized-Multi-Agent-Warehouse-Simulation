@@ -335,6 +335,19 @@ dwa_generate_messages_cpp/fast:
 .PHONY : dwa_generate_messages_cpp/fast
 
 #=============================================================================
+# Target rules for targets named _dwa_generate_messages_check_deps_GoalCompletion
+
+# Build rule for target.
+_dwa_generate_messages_check_deps_GoalCompletion: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _dwa_generate_messages_check_deps_GoalCompletion
+.PHONY : _dwa_generate_messages_check_deps_GoalCompletion
+
+# fast build rule for target.
+_dwa_generate_messages_check_deps_GoalCompletion/fast:
+	$(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build
+.PHONY : _dwa_generate_messages_check_deps_GoalCompletion/fast
+
+#=============================================================================
 # Target rules for targets named dwa_generate_messages
 
 # Build rule for target.
@@ -1114,6 +1127,7 @@ help:
 	@echo "... dwa_generate_messages_nodejs"
 	@echo "... dwa_generate_messages_lisp"
 	@echo "... dwa_generate_messages_cpp"
+	@echo "... _dwa_generate_messages_check_deps_GoalCompletion"
 	@echo "... dwa_generate_messages"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... dwa_generate_messages_eus"

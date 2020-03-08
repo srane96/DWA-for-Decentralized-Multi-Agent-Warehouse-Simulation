@@ -33,7 +33,10 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dwa/srv" TYPE FILE FILES "/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalRequest.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dwa/srv" TYPE FILE FILES
+    "/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalRequest.srv"
+    "/home/siddhesh/warehouse_sim/warehouse_dwa/src/dwa/srv/GoalCompletion.srv"
+    )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
