@@ -28,8 +28,8 @@ class Config():
         self.speed_cost_gain = 0.1 #lower = faster
         self.obs_cost_gain = 3.2 #lower z= fearless
         self.robot_radius = 0.15  # [m]
-        self.orig_x = -42.0
-        self.orig_y = 28.0
+        self.orig_x = -42
+        self.orig_y = 32.0
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
@@ -323,10 +323,10 @@ def main():
     config = Config()
     # position of obstacles
     obs = Obstacles()
-    subOdom = rospy.Subscriber("/robot_2/odom", Odometry, config.assignOdomCoords)
-    subLaser = rospy.Subscriber("/robot_2/base_scan", LaserScan, obs.assignObs, config)
+    subOdom = rospy.Subscriber("/robot_0/odom", Odometry, config.assignOdomCoords)
+    subLaser = rospy.Subscriber("/robot_0/base_scan", LaserScan, obs.assignObs, config)
     #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
-    pub = rospy.Publisher("/robot_2/cmd_vel", Twist, queue_size=1)
+    pub = rospy.Publisher("/robot_0/cmd_vel", Twist, queue_size=1)
     speed = Twist()
     # initial state [x(m), y(m), theta(rad), v(m/s), omega(rad/s)]
     x = np.array([config.x, config.y, config.th, 0.0, 0.0])
@@ -353,14 +353,14 @@ def main():
             speed.angular.z = 0.0
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r3',config.goal_name,config.job_end - config.job_start)
+                goalComplete = config.goalCompleteRequest('r1',config.goal_name,config.job_end - config.job_start)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
         if not config.busy:
             pub.publish(speed)
             #time.sleep(5)
-            goalCoord = config.goalServiceRequeset('r3')
+            goalCoord = config.goalServiceRequeset('r1')
             if goalCoord.success:
                 print("Goal x:", goalCoord.goal_x, "Goal y:", goalCoord.goal_y)
                 print("Time: ", goalCoord.stamp.secs)

@@ -55,10 +55,10 @@
   "dwa/GoalRequestRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<GoalRequest-request>)))
   "Returns md5sum for a message object of type '<GoalRequest-request>"
-  "be9923288e21a498f8a393f67472abcf")
+  "564d06e8e5ce821e99b2ea5ba96820ea")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'GoalRequest-request)))
   "Returns md5sum for a message object of type 'GoalRequest-request"
-  "be9923288e21a498f8a393f67472abcf")
+  "564d06e8e5ce821e99b2ea5ba96820ea")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<GoalRequest-request>)))
   "Returns full string definition for message of type '<GoalRequest-request>"
   (cl:format cl:nil "string bot_name~%~%~%"))
@@ -87,6 +87,11 @@
     :initarg :goal_y
     :type cl:integer
     :initform 0)
+   (goal_name
+    :reader goal_name
+    :initarg :goal_name
+    :type cl:string
+    :initform "")
    (stamp
     :reader stamp
     :initarg :stamp
@@ -116,6 +121,11 @@
 (cl:defmethod goal_y-val ((m <GoalRequest-response>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dwa-srv:goal_y-val is deprecated.  Use dwa-srv:goal_y instead.")
   (goal_y m))
+
+(cl:ensure-generic-function 'goal_name-val :lambda-list '(m))
+(cl:defmethod goal_name-val ((m <GoalRequest-response>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dwa-srv:goal_name-val is deprecated.  Use dwa-srv:goal_name instead.")
+  (goal_name m))
 
 (cl:ensure-generic-function 'stamp-val :lambda-list '(m))
 (cl:defmethod stamp-val ((m <GoalRequest-response>))
@@ -148,6 +158,12 @@
     (cl:write-byte (cl:ldb (cl:byte 8 48) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
     )
+  (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'goal_name))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'goal_name))
   (cl:let ((__sec (cl:floor (cl:slot-value msg 'stamp)))
         (__nsec (cl:round (cl:* 1e9 (cl:- (cl:slot-value msg 'stamp) (cl:floor (cl:slot-value msg 'stamp)))))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __sec) ostream)
@@ -182,6 +198,14 @@
       (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'goal_y) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+    (cl:let ((__ros_str_len 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'goal_name) (cl:make-string __ros_str_len))
+      (cl:dotimes (__ros_str_idx __ros_str_len msg)
+        (cl:setf (cl:char (cl:slot-value msg 'goal_name) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
     (cl:let ((__sec 0) (__nsec 0))
       (cl:setf (cl:ldb (cl:byte 8 0) __sec) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) __sec) (cl:read-byte istream))
@@ -203,20 +227,21 @@
   "dwa/GoalRequestResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<GoalRequest-response>)))
   "Returns md5sum for a message object of type '<GoalRequest-response>"
-  "be9923288e21a498f8a393f67472abcf")
+  "564d06e8e5ce821e99b2ea5ba96820ea")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'GoalRequest-response)))
   "Returns md5sum for a message object of type 'GoalRequest-response"
-  "be9923288e21a498f8a393f67472abcf")
+  "564d06e8e5ce821e99b2ea5ba96820ea")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<GoalRequest-response>)))
   "Returns full string definition for message of type '<GoalRequest-response>"
-  (cl:format cl:nil "int64 goal_x~%int64 goal_y~%time stamp~%bool success~%~%~%"))
+  (cl:format cl:nil "int64 goal_x~%int64 goal_y~%string goal_name~%time stamp~%bool success~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'GoalRequest-response)))
   "Returns full string definition for message of type 'GoalRequest-response"
-  (cl:format cl:nil "int64 goal_x~%int64 goal_y~%time stamp~%bool success~%~%~%"))
+  (cl:format cl:nil "int64 goal_x~%int64 goal_y~%string goal_name~%time stamp~%bool success~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <GoalRequest-response>))
   (cl:+ 0
      8
      8
+     4 (cl:length (cl:slot-value msg 'goal_name))
      8
      1
 ))
@@ -225,6 +250,7 @@
   (cl:list 'GoalRequest-response
     (cl:cons ':goal_x (goal_x msg))
     (cl:cons ':goal_y (goal_y msg))
+    (cl:cons ':goal_name (goal_name msg))
     (cl:cons ':stamp (stamp msg))
     (cl:cons ':success (success msg))
 ))

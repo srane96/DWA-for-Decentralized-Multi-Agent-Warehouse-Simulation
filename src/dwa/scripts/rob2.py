@@ -28,15 +28,19 @@ class Config():
         self.speed_cost_gain = 0.1 #lower = faster
         self.obs_cost_gain = 3.2 #lower z= fearless
         self.robot_radius = 0.15  # [m]
+        self.orig_x = -42.0
+        self.orig_y = 30.0
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
-        self.goalX = self.x 
+        self.goalX = self.x  
         self.goalY = self.y
+        self.goal_name = ""
         self.r = rospy.Rate(20)
         self.busy = False
         self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
-
+        self.job_start = 0.0;
+        self.job_end = 0.0;
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -62,11 +66,11 @@ class Config():
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
-    def goalCompleteRequest(self, name):
+    def goalCompleteRequest(self, name, goal_name, time):
         rospy.wait_for_service('goal_complete')
         try:
             goalComplete = rospy.ServiceProxy('goal_complete',GoalCompletion)
-            response = goalComplete(name, 0.0)
+            response = goalComplete(name, goal_name, time)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -93,7 +97,7 @@ class Obstacles():
         self.obst = set()   # reset the obstacle set to only keep visible objects
 
         maxAngle = 270
-        scanSkip = 10
+        scanSkip = 5
         anglePerSlot = (float(maxAngle) / deg) * scanSkip
         angleCount = 0
         angleValuePos = 0
@@ -308,7 +312,7 @@ def dwa_control(x, u, config, ob):
 def atGoal(config, x):
     # check at goal
     if math.sqrt((x[0] - config.goalX)**2 + (x[1] - config.goalY)**2) \
-        <= config.robot_radius:
+        <= config.robot_radius * 1.5:
         return True
     return False
 
@@ -332,7 +336,7 @@ def main():
     # runs until terminated externally
     while not rospy.is_shutdown():
         if (atGoal(config,x) == False):
-            start_time = time.time()
+            #start_time = time.time()
             u = dwa_control(x, u, config, obs.obst)
             #print("Time to calculate a single pass through DWA {}".format(time.time() - start_time))
             x[0] = config.x
@@ -344,27 +348,33 @@ def main():
             speed.angular.z = x[4]
         else:
             # if at goal then stay there until new goal published
+            config.job_end = time.time()
             speed.linear.x = 0.0
             speed.angular.z = 0.0
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r2')
+                goalComplete = config.goalCompleteRequest('r2',config.goal_name,config.job_end - config.job_start)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
         if not config.busy:
+            pub.publish(speed)
+            #time.sleep(5)
             goalCoord = config.goalServiceRequeset('r2')
             if goalCoord.success:
                 print("Goal x:", goalCoord.goal_x, "Goal y:", goalCoord.goal_y)
                 print("Time: ", goalCoord.stamp.secs)
-                config.goalX = goalCoord.goal_x
-                config.goalY = goalCoord.goal_y
+                config.goalX = goalCoord.goal_x - config.orig_x
+                config.goalY = goalCoord.goal_y - config.orig_y
+                config.goal_name = goalCoord.goal_name
                 config.busy = True
                 #config.goalReached = False
                 config.canSendCompletionRequest = True
+                config.job_start = time.time()
             else:
                 print("No jobs available currently")
         pub.publish(speed)
+        #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 
 

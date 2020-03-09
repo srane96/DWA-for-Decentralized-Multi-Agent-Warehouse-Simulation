@@ -25,10 +25,12 @@ struct GoalCompletionRequest_
 
   GoalCompletionRequest_()
     : bot_name()
+    , goal_name()
     , total_time(0.0)  {
     }
   GoalCompletionRequest_(const ContainerAllocator& _alloc)
     : bot_name(_alloc)
+    , goal_name(_alloc)
     , total_time(0.0)  {
   (void)_alloc;
     }
@@ -37,6 +39,9 @@ struct GoalCompletionRequest_
 
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _bot_name_type;
   _bot_name_type bot_name;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _goal_name_type;
+  _goal_name_type goal_name;
 
    typedef double _total_time_type;
   _total_time_type total_time;
@@ -119,12 +124,12 @@ struct MD5Sum< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "37e2075fb9194b01cef6051f6458123b";
+    return "df525a2d94fdfc26306f28579d2e0ba2";
   }
 
   static const char* value(const ::dwa::GoalCompletionRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x37e2075fb9194b01ULL;
-  static const uint64_t static_value2 = 0xcef6051f6458123bULL;
+  static const uint64_t static_value1 = 0xdf525a2d94fdfc26ULL;
+  static const uint64_t static_value2 = 0x306f28579d2e0ba2ULL;
 };
 
 template<class ContainerAllocator>
@@ -144,6 +149,7 @@ struct Definition< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "string bot_name\n\
+string goal_name\n\
 float64 total_time\n\
 ";
   }
@@ -164,6 +170,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.bot_name);
+      stream.next(m.goal_name);
       stream.next(m.total_time);
     }
 
@@ -185,6 +192,8 @@ struct Printer< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
   {
     s << indent << "bot_name: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.bot_name);
+    s << indent << "goal_name: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.goal_name);
     s << indent << "total_time: ";
     Printer<double>::stream(s, indent + "  ", v.total_time);
   }

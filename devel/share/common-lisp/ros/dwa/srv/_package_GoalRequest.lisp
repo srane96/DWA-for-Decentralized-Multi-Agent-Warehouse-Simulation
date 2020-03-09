@@ -5,6 +5,8 @@
           GOAL_X
           GOAL_Y-VAL
           GOAL_Y
+          GOAL_NAME-VAL
+          GOAL_NAME
           STAMP-VAL
           STAMP
           SUCCESS-VAL

@@ -30,7 +30,8 @@ window
 floorplan
 (
   name "Addverb"
-  bitmap "AddverbMap.png"
+  #bitmap "AddverbMap.png"
+  bitmap "blank_map.png"
   size [ 100.0 60.0 2.0 ]  #[ 10.0 10.0 2.0 ]
   pose [  5.0  5.0 0.0 0.0 ]
 )

@@ -96,6 +96,7 @@ class GoalRequestResponse {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.goal_x = null;
       this.goal_y = null;
+      this.goal_name = null;
       this.stamp = null;
       this.success = null;
     }
@@ -111,6 +112,12 @@ class GoalRequestResponse {
       }
       else {
         this.goal_y = 0;
+      }
+      if (initObj.hasOwnProperty('goal_name')) {
+        this.goal_name = initObj.goal_name
+      }
+      else {
+        this.goal_name = '';
       }
       if (initObj.hasOwnProperty('stamp')) {
         this.stamp = initObj.stamp
@@ -133,6 +140,8 @@ class GoalRequestResponse {
     bufferOffset = _serializer.int64(obj.goal_x, buffer, bufferOffset);
     // Serialize message field [goal_y]
     bufferOffset = _serializer.int64(obj.goal_y, buffer, bufferOffset);
+    // Serialize message field [goal_name]
+    bufferOffset = _serializer.string(obj.goal_name, buffer, bufferOffset);
     // Serialize message field [stamp]
     bufferOffset = _serializer.time(obj.stamp, buffer, bufferOffset);
     // Serialize message field [success]
@@ -148,6 +157,8 @@ class GoalRequestResponse {
     data.goal_x = _deserializer.int64(buffer, bufferOffset);
     // Deserialize message field [goal_y]
     data.goal_y = _deserializer.int64(buffer, bufferOffset);
+    // Deserialize message field [goal_name]
+    data.goal_name = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [stamp]
     data.stamp = _deserializer.time(buffer, bufferOffset);
     // Deserialize message field [success]
@@ -156,7 +167,9 @@ class GoalRequestResponse {
   }
 
   static getMessageSize(object) {
-    return 25;
+    let length = 0;
+    length += object.goal_name.length;
+    return length + 29;
   }
 
   static datatype() {
@@ -166,7 +179,7 @@ class GoalRequestResponse {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '7eaa95601f0ebd14a3fe76677258d5b0';
+    return '2fab0aa1467e4af7d3e9436fadbc0fdc';
   }
 
   static messageDefinition() {
@@ -174,6 +187,7 @@ class GoalRequestResponse {
     return `
     int64 goal_x
     int64 goal_y
+    string goal_name
     time stamp
     bool success
     
@@ -200,6 +214,13 @@ class GoalRequestResponse {
       resolved.goal_y = 0
     }
 
+    if (msg.goal_name !== undefined) {
+      resolved.goal_name = msg.goal_name;
+    }
+    else {
+      resolved.goal_name = ''
+    }
+
     if (msg.stamp !== undefined) {
       resolved.stamp = msg.stamp;
     }
@@ -221,6 +242,6 @@ class GoalRequestResponse {
 module.exports = {
   Request: GoalRequestRequest,
   Response: GoalRequestResponse,
-  md5sum() { return 'be9923288e21a498f8a393f67472abcf'; },
+  md5sum() { return '564d06e8e5ce821e99b2ea5ba96820ea'; },
   datatype() { return 'dwa/GoalRequest'; }
 };

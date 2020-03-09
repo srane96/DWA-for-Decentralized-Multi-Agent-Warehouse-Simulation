@@ -130,16 +130,17 @@ import struct
 import genpy
 
 class GoalRequestResponse(genpy.Message):
-  _md5sum = "7eaa95601f0ebd14a3fe76677258d5b0"
+  _md5sum = "2fab0aa1467e4af7d3e9436fadbc0fdc"
   _type = "dwa/GoalRequestResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """int64 goal_x
 int64 goal_y
+string goal_name
 time stamp
 bool success
 """
-  __slots__ = ['goal_x','goal_y','stamp','success']
-  _slot_types = ['int64','int64','time','bool']
+  __slots__ = ['goal_x','goal_y','goal_name','stamp','success']
+  _slot_types = ['int64','int64','string','time','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -149,7 +150,7 @@ bool success
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       goal_x,goal_y,stamp,success
+       goal_x,goal_y,goal_name,stamp,success
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -162,6 +163,8 @@ bool success
         self.goal_x = 0
       if self.goal_y is None:
         self.goal_y = 0
+      if self.goal_name is None:
+        self.goal_name = ''
       if self.stamp is None:
         self.stamp = genpy.Time()
       if self.success is None:
@@ -169,6 +172,7 @@ bool success
     else:
       self.goal_x = 0
       self.goal_y = 0
+      self.goal_name = ''
       self.stamp = genpy.Time()
       self.success = False
 
@@ -185,7 +189,15 @@ bool success
     """
     try:
       _x = self
-      buff.write(_get_struct_2q2IB().pack(_x.goal_x, _x.goal_y, _x.stamp.secs, _x.stamp.nsecs, _x.success))
+      buff.write(_get_struct_2q().pack(_x.goal_x, _x.goal_y))
+      _x = self.goal_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_get_struct_2IB().pack(_x.stamp.secs, _x.stamp.nsecs, _x.success))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -200,8 +212,21 @@ bool success
       end = 0
       _x = self
       start = end
-      end += 25
-      (_x.goal_x, _x.goal_y, _x.stamp.secs, _x.stamp.nsecs, _x.success,) = _get_struct_2q2IB().unpack(str[start:end])
+      end += 16
+      (_x.goal_x, _x.goal_y,) = _get_struct_2q().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.goal_name = str[start:end].decode('utf-8')
+      else:
+        self.goal_name = str[start:end]
+      _x = self
+      start = end
+      end += 9
+      (_x.stamp.secs, _x.stamp.nsecs, _x.success,) = _get_struct_2IB().unpack(str[start:end])
       self.success = bool(self.success)
       self.stamp.canon()
       return self
@@ -217,7 +242,15 @@ bool success
     """
     try:
       _x = self
-      buff.write(_get_struct_2q2IB().pack(_x.goal_x, _x.goal_y, _x.stamp.secs, _x.stamp.nsecs, _x.success))
+      buff.write(_get_struct_2q().pack(_x.goal_x, _x.goal_y))
+      _x = self.goal_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_get_struct_2IB().pack(_x.stamp.secs, _x.stamp.nsecs, _x.success))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -233,8 +266,21 @@ bool success
       end = 0
       _x = self
       start = end
-      end += 25
-      (_x.goal_x, _x.goal_y, _x.stamp.secs, _x.stamp.nsecs, _x.success,) = _get_struct_2q2IB().unpack(str[start:end])
+      end += 16
+      (_x.goal_x, _x.goal_y,) = _get_struct_2q().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.goal_name = str[start:end].decode('utf-8')
+      else:
+        self.goal_name = str[start:end]
+      _x = self
+      start = end
+      end += 9
+      (_x.stamp.secs, _x.stamp.nsecs, _x.success,) = _get_struct_2IB().unpack(str[start:end])
       self.success = bool(self.success)
       self.stamp.canon()
       return self
@@ -245,14 +291,20 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2q2IB = None
-def _get_struct_2q2IB():
-    global _struct_2q2IB
-    if _struct_2q2IB is None:
-        _struct_2q2IB = struct.Struct("<2q2IB")
-    return _struct_2q2IB
+_struct_2IB = None
+def _get_struct_2IB():
+    global _struct_2IB
+    if _struct_2IB is None:
+        _struct_2IB = struct.Struct("<2IB")
+    return _struct_2IB
+_struct_2q = None
+def _get_struct_2q():
+    global _struct_2q
+    if _struct_2q is None:
+        _struct_2q = struct.Struct("<2q")
+    return _struct_2q
 class GoalRequest(object):
   _type          = 'dwa/GoalRequest'
-  _md5sum = 'be9923288e21a498f8a393f67472abcf'
+  _md5sum = '564d06e8e5ce821e99b2ea5ba96820ea'
   _request_class  = GoalRequestRequest
   _response_class = GoalRequestResponse

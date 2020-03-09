@@ -7,14 +7,15 @@ import struct
 
 
 class GoalCompletionRequest(genpy.Message):
-  _md5sum = "37e2075fb9194b01cef6051f6458123b"
+  _md5sum = "df525a2d94fdfc26306f28579d2e0ba2"
   _type = "dwa/GoalCompletionRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """string bot_name
+string goal_name
 float64 total_time
 """
-  __slots__ = ['bot_name','total_time']
-  _slot_types = ['string','float64']
+  __slots__ = ['bot_name','goal_name','total_time']
+  _slot_types = ['string','string','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -24,7 +25,7 @@ float64 total_time
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       bot_name,total_time
+       bot_name,goal_name,total_time
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -35,10 +36,13 @@ float64 total_time
       #message fields cannot be None, assign default values for those that are
       if self.bot_name is None:
         self.bot_name = ''
+      if self.goal_name is None:
+        self.goal_name = ''
       if self.total_time is None:
         self.total_time = 0.
     else:
       self.bot_name = ''
+      self.goal_name = ''
       self.total_time = 0.
 
   def _get_types(self):
@@ -54,6 +58,12 @@ float64 total_time
     """
     try:
       _x = self.bot_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.goal_name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -80,6 +90,15 @@ float64 total_time
       else:
         self.bot_name = str[start:end]
       start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.goal_name = str[start:end].decode('utf-8')
+      else:
+        self.goal_name = str[start:end]
+      start = end
       end += 8
       (self.total_time,) = _get_struct_d().unpack(str[start:end])
       return self
@@ -95,6 +114,12 @@ float64 total_time
     """
     try:
       _x = self.bot_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.goal_name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -121,6 +146,15 @@ float64 total_time
         self.bot_name = str[start:end].decode('utf-8')
       else:
         self.bot_name = str[start:end]
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.goal_name = str[start:end].decode('utf-8')
+      else:
+        self.goal_name = str[start:end]
       start = end
       end += 8
       (self.total_time,) = _get_struct_d().unpack(str[start:end])
@@ -248,6 +282,6 @@ def _get_struct_B():
     return _struct_B
 class GoalCompletion(object):
   _type          = 'dwa/GoalCompletion'
-  _md5sum = '4b461984e2301fa44aff8b9f6f3d11e2'
+  _md5sum = 'ee36b4ebac3e5489cfd86ace878cd28e'
   _request_class  = GoalCompletionRequest
   _response_class = GoalCompletionResponse

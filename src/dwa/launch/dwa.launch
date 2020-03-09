@@ -2,4 +2,8 @@
 	<node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
 	<node name="central_server" pkg="dwa" type="central_server.py" output="screen"/>
 	<node name="rob1" pkg="dwa" type="rob1.py" output="screen"/>
+	<node name="rob2" pkg="dwa" type="rob2.py" output="screen"/>
+	<node name="rob3" pkg="dwa" type="rob3.py" output="screen"/>
+	<node name="rob4" pkg="dwa" type="rob4.py" output="screen"/>
+	<node name="rob5" pkg="dwa" type="rob5.py" output="screen"/>
 </launch>

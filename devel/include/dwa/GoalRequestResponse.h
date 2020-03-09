@@ -26,12 +26,14 @@ struct GoalRequestResponse_
   GoalRequestResponse_()
     : goal_x(0)
     , goal_y(0)
+    , goal_name()
     , stamp()
     , success(false)  {
     }
   GoalRequestResponse_(const ContainerAllocator& _alloc)
     : goal_x(0)
     , goal_y(0)
+    , goal_name(_alloc)
     , stamp()
     , success(false)  {
   (void)_alloc;
@@ -44,6 +46,9 @@ struct GoalRequestResponse_
 
    typedef int64_t _goal_y_type;
   _goal_y_type goal_y;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _goal_name_type;
+  _goal_name_type goal_name;
 
    typedef ros::Time _stamp_type;
   _stamp_type stamp;
@@ -85,7 +90,7 @@ namespace message_traits
 
 
 
-// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
+// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
 // {'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
@@ -95,12 +100,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::dwa::GoalRequestResponse_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::dwa::GoalRequestResponse_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -129,12 +134,12 @@ struct MD5Sum< ::dwa::GoalRequestResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "7eaa95601f0ebd14a3fe76677258d5b0";
+    return "2fab0aa1467e4af7d3e9436fadbc0fdc";
   }
 
   static const char* value(const ::dwa::GoalRequestResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x7eaa95601f0ebd14ULL;
-  static const uint64_t static_value2 = 0xa3fe76677258d5b0ULL;
+  static const uint64_t static_value1 = 0x2fab0aa1467e4af7ULL;
+  static const uint64_t static_value2 = 0xd3e9436fadbc0fdcULL;
 };
 
 template<class ContainerAllocator>
@@ -155,6 +160,7 @@ struct Definition< ::dwa::GoalRequestResponse_<ContainerAllocator> >
   {
     return "int64 goal_x\n\
 int64 goal_y\n\
+string goal_name\n\
 time stamp\n\
 bool success\n\
 ";
@@ -177,6 +183,7 @@ namespace serialization
     {
       stream.next(m.goal_x);
       stream.next(m.goal_y);
+      stream.next(m.goal_name);
       stream.next(m.stamp);
       stream.next(m.success);
     }
@@ -201,6 +208,8 @@ struct Printer< ::dwa::GoalRequestResponse_<ContainerAllocator> >
     Printer<int64_t>::stream(s, indent + "  ", v.goal_x);
     s << indent << "goal_y: ";
     Printer<int64_t>::stream(s, indent + "  ", v.goal_y);
+    s << indent << "goal_name: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.goal_name);
     s << indent << "stamp: ";
     Printer<ros::Time>::stream(s, indent + "  ", v.stamp);
     s << indent << "success: ";

@@ -20,18 +20,18 @@ class Config():
         self.max_yawrate = 1.0  # [rad/s]
         self.max_accel = 1.6  # [m/ss]
         self.max_dyawrate = 3.2  # [rad/ss]
-        self.v_reso = 0.15  # [m/s]
-        self.yawrate_reso = 0.05  # [rad/s]
+        self.v_reso = 0.20  # [m/s]
+        self.yawrate_reso = 1.5  # [rad/s]
         self.dt = 0.5  # [s]
         self.predict_time = 1.5  # [s]
         self.to_goal_cost_gain = 2.4 #lower = detour
-        self.speed_cost_gain = 0.1 #lower = faster
-        self.obs_cost_gain = 3.2 #lower z= fearless
+        self.speed_cost_gain = 0.3 #lower = faster
+        self.obs_cost_gain = 25.0 #lower z= fearless
         self.robot_radius = 0.15  # [m]
-        self.orig_x = 0
-        self.orig_y = -3.0
+        self.orig_x = -42.0
+        self.orig_y = 32.0
         self.x = 0.0
-        self.y = -3.0
+        self.y = 0.0
         self.th = 0.0
         self.goalX = self.x  
         self.goalY = self.y
@@ -41,6 +41,7 @@ class Config():
         self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
         self.job_start = 0.0;
         self.job_end = 0.0;
+        self.stall_count = 0;
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -50,6 +51,8 @@ class Config():
         (roll,pitch,theta) = \
             euler_from_quaternion ([rot_q.x,rot_q.y,rot_q.z,rot_q.w])
         self.th = theta
+        if self.busy == True and msg.twist.twist.linear.x == 0.0 and msg.twist.twist.linear.y == 0.0:
+            self.stall_count += 1
 
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
@@ -66,11 +69,11 @@ class Config():
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
-    def goalCompleteRequest(self, name, time):
+    def goalCompleteRequest(self, name, goal_name, time):
         rospy.wait_for_service('goal_complete')
         try:
             goalComplete = rospy.ServiceProxy('goal_complete',GoalCompletion)
-            response = goalComplete(name, time)
+            response = goalComplete(name, goal_name, time)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -97,7 +100,7 @@ class Obstacles():
         self.obst = set()   # reset the obstacle set to only keep visible objects
 
         maxAngle = 270
-        scanSkip = 5
+        scanSkip = 2
         anglePerSlot = (float(maxAngle) / deg) * scanSkip
         angleCount = 0
         angleValuePos = 0
@@ -122,7 +125,7 @@ class Obstacles():
 
             angleCount += 1
 
-            if (distance < 4):
+            if (distance < 10):
                 # angle of obstacle wrt robot
                 # angle/2.844 is to normalise the 512 degrees in real world
                 # for simulation in Gazebo, use angle/4.0
@@ -312,7 +315,7 @@ def dwa_control(x, u, config, ob):
 def atGoal(config, x):
     # check at goal
     if math.sqrt((x[0] - config.goalX)**2 + (x[1] - config.goalY)**2) \
-        <= config.robot_radius:
+        <= config.robot_radius * 1.5:
         return True
     return False
 
@@ -323,8 +326,9 @@ def main():
     config = Config()
     # position of obstacles
     obs = Obstacles()
-    subOdom = rospy.Subscriber("/robot_0/odom", Odometry, config.assignOdomCoords)
+    subOdom = rospy.Subscriber("/robot_0/base_pose_ground_truth", Odometry, config.assignOdomCoords)
     subLaser = rospy.Subscriber("/robot_0/base_scan", LaserScan, obs.assignObs, config)
+    #globPose = rospy.Subscriber("/robot_0/base_pose_ground_truth",)
     #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
     pub = rospy.Publisher("/robot_0/cmd_vel", Twist, queue_size=1)
     speed = Twist()
@@ -346,6 +350,8 @@ def main():
             x[4] = u[1]
             speed.linear.x = x[3]
             speed.angular.z = x[4]
+            if config.stall_count >= 100:
+                print("R1 is Crashed")
         else:
             # if at goal then stay there until new goal published
             config.job_end = time.time()
@@ -353,7 +359,7 @@ def main():
             speed.angular.z = 0.0
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r1',config.job_end - config.job_start)
+                goalComplete = config.goalCompleteRequest('r1',config.goal_name,config.job_end - config.job_start)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
