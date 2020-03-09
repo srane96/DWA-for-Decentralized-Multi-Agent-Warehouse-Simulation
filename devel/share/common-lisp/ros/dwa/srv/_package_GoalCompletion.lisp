@@ -5,6 +5,8 @@
           GOAL_NAME
           TOTAL_TIME-VAL
           TOTAL_TIME
+          GOAL_SUCCESS-VAL
+          GOAL_SUCCESS
           SUCCESS-VAL
           SUCCESS
 ))

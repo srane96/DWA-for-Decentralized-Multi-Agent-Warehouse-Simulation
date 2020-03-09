@@ -26,12 +26,14 @@ struct GoalCompletionRequest_
   GoalCompletionRequest_()
     : bot_name()
     , goal_name()
-    , total_time(0.0)  {
+    , total_time(0.0)
+    , goal_success(false)  {
     }
   GoalCompletionRequest_(const ContainerAllocator& _alloc)
     : bot_name(_alloc)
     , goal_name(_alloc)
-    , total_time(0.0)  {
+    , total_time(0.0)
+    , goal_success(false)  {
   (void)_alloc;
     }
 
@@ -45,6 +47,9 @@ struct GoalCompletionRequest_
 
    typedef double _total_time_type;
   _total_time_type total_time;
+
+   typedef uint8_t _goal_success_type;
+  _goal_success_type goal_success;
 
 
 
@@ -124,12 +129,12 @@ struct MD5Sum< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "df525a2d94fdfc26306f28579d2e0ba2";
+    return "22e0497ce00bb79fe47670d1bbb8f780";
   }
 
   static const char* value(const ::dwa::GoalCompletionRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xdf525a2d94fdfc26ULL;
-  static const uint64_t static_value2 = 0x306f28579d2e0ba2ULL;
+  static const uint64_t static_value1 = 0x22e0497ce00bb79fULL;
+  static const uint64_t static_value2 = 0xe47670d1bbb8f780ULL;
 };
 
 template<class ContainerAllocator>
@@ -151,6 +156,7 @@ struct Definition< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
     return "string bot_name\n\
 string goal_name\n\
 float64 total_time\n\
+bool goal_success\n\
 ";
   }
 
@@ -172,6 +178,7 @@ namespace serialization
       stream.next(m.bot_name);
       stream.next(m.goal_name);
       stream.next(m.total_time);
+      stream.next(m.goal_success);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -196,6 +203,8 @@ struct Printer< ::dwa::GoalCompletionRequest_<ContainerAllocator> >
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.goal_name);
     s << indent << "total_time: ";
     Printer<double>::stream(s, indent + "  ", v.total_time);
+    s << indent << "goal_success: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.goal_success);
   }
 };
 

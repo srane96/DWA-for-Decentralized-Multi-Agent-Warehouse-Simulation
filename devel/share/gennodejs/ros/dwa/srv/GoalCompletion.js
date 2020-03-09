@@ -24,6 +24,7 @@ class GoalCompletionRequest {
       this.bot_name = null;
       this.goal_name = null;
       this.total_time = null;
+      this.goal_success = null;
     }
     else {
       if (initObj.hasOwnProperty('bot_name')) {
@@ -44,6 +45,12 @@ class GoalCompletionRequest {
       else {
         this.total_time = 0.0;
       }
+      if (initObj.hasOwnProperty('goal_success')) {
+        this.goal_success = initObj.goal_success
+      }
+      else {
+        this.goal_success = false;
+      }
     }
   }
 
@@ -55,6 +62,8 @@ class GoalCompletionRequest {
     bufferOffset = _serializer.string(obj.goal_name, buffer, bufferOffset);
     // Serialize message field [total_time]
     bufferOffset = _serializer.float64(obj.total_time, buffer, bufferOffset);
+    // Serialize message field [goal_success]
+    bufferOffset = _serializer.bool(obj.goal_success, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -68,6 +77,8 @@ class GoalCompletionRequest {
     data.goal_name = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [total_time]
     data.total_time = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [goal_success]
+    data.goal_success = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
@@ -75,7 +86,7 @@ class GoalCompletionRequest {
     let length = 0;
     length += object.bot_name.length;
     length += object.goal_name.length;
-    return length + 16;
+    return length + 17;
   }
 
   static datatype() {
@@ -85,7 +96,7 @@ class GoalCompletionRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'df525a2d94fdfc26306f28579d2e0ba2';
+    return '22e0497ce00bb79fe47670d1bbb8f780';
   }
 
   static messageDefinition() {
@@ -94,6 +105,7 @@ class GoalCompletionRequest {
     string bot_name
     string goal_name
     float64 total_time
+    bool goal_success
     
     `;
   }
@@ -123,6 +135,13 @@ class GoalCompletionRequest {
     }
     else {
       resolved.total_time = 0.0
+    }
+
+    if (msg.goal_success !== undefined) {
+      resolved.goal_success = msg.goal_success;
+    }
+    else {
+      resolved.goal_success = false
     }
 
     return resolved;
@@ -203,6 +222,6 @@ class GoalCompletionResponse {
 module.exports = {
   Request: GoalCompletionRequest,
   Response: GoalCompletionResponse,
-  md5sum() { return 'ee36b4ebac3e5489cfd86ace878cd28e'; },
+  md5sum() { return '14abb92b206f3d51f81cd4863d4d4a6e'; },
   datatype() { return 'dwa/GoalCompletion'; }
 };

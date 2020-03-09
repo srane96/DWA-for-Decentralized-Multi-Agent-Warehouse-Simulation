@@ -15,21 +15,19 @@ class Config():
         # robot parameter
         #NOTE good params:
         #NOTE 0.55,0.1,1.0,1.6,3.2,0.15,0.05,0.1,1.7,2.4,0.1,3.2,0.18
-        self.max_speed = 0.55  # [m/s]
-        self.min_speed = 0.1  # [m/s]
+        self.max_speed = 0.8 # [m/s]
+        self.min_speed = 0.0  # [m/s]
         self.max_yawrate = 1.0  # [rad/s]
-        self.max_accel = 1.6  # [m/ss]
+        self.max_accel = 1.5  # [m/ss]
         self.max_dyawrate = 3.2  # [rad/ss]
-        self.v_reso = 0.15  # [m/s]
-        self.yawrate_reso = 0.05  # [rad/s]
+        self.v_reso = 0.10  # [m/s]
+        self.yawrate_reso = 1.5  # [rad/s]
         self.dt = 0.5  # [s]
         self.predict_time = 1.5  # [s]
         self.to_goal_cost_gain = 2.4 #lower = detour
         self.speed_cost_gain = 0.1 #lower = faster
-        self.obs_cost_gain = 3.2 #lower z= fearless
-        self.robot_radius = 0.15  # [m]
-        self.orig_x = -42
-        self.orig_y = 24.0
+        self.obs_cost_gain = 25.0 #lower z= fearless
+        self.robot_radius = 0.60  # [m]
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
@@ -41,6 +39,7 @@ class Config():
         self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
         self.job_start = 0.0;
         self.job_end = 0.0;
+        self.stall_count = 0;
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -50,6 +49,10 @@ class Config():
         (roll,pitch,theta) = \
             euler_from_quaternion ([rot_q.x,rot_q.y,rot_q.z,rot_q.w])
         self.th = theta
+        if self.busy == True and msg.twist.twist.linear.x == 0.0 and msg.twist.twist.linear.y == 0.0:
+            self.stall_count += 1
+        else:
+            self.stall_count = 0
 
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
@@ -58,7 +61,7 @@ class Config():
 
     def goalServiceRequeset(self, name):
         rospy.wait_for_service('task_assign')
-        print("Service available for ", name)
+        #print("Service available for ", name)
         try:
             goalCoord = rospy.ServiceProxy('task_assign',GoalRequest)
             response = goalCoord(name)
@@ -66,11 +69,11 @@ class Config():
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
-    def goalCompleteRequest(self, name, goal_name, time):
+    def goalCompleteRequest(self, name, goal_name, time, status):
         rospy.wait_for_service('goal_complete')
         try:
             goalComplete = rospy.ServiceProxy('goal_complete',GoalCompletion)
-            response = goalComplete(name, goal_name, time)
+            response = goalComplete(name, goal_name, time, status)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -97,7 +100,7 @@ class Obstacles():
         self.obst = set()   # reset the obstacle set to only keep visible objects
 
         maxAngle = 270
-        scanSkip = 5
+        scanSkip = 2
         anglePerSlot = (float(maxAngle) / deg) * scanSkip
         angleCount = 0
         angleValuePos = 0
@@ -122,24 +125,20 @@ class Obstacles():
 
             angleCount += 1
 
-            if (distance < 4):
+            if (distance < 10):
                 # angle of obstacle wrt robot
                 # angle/2.844 is to normalise the 512 degrees in real world
                 # for simulation in Gazebo, use angle/4.0
                 # laser from 0 to 180
                 # scanTheta = (angle/2.844 + deg*(-180.0/deg)+90.0) *math.pi/180.0
-                
                 # # angle of obstacle wrt global frame
                 # if config.th < 0:
                 #     objTheta = config.th + scanTheta
                 # else:
                 #     objTheta = config.th - scanTheta
-
                 # print("The scan theta is {}".format(scanTheta * 180 / math.pi))
                 # print("The angel count is {}".format(angleCount))
                 # print("Angle per slot is {}".format(anglePerSlot))
-                
-
                 objTheta =  scanTheta + config.th
                 # # back quadrant negative X negative Y
                 # if (objTheta < -math.pi):
@@ -148,18 +147,8 @@ class Obstacles():
                 # # back quadrant negative X positve Y
                 # elif (objTheta > math.pi):
                 #     objTheta = objTheta - 1.5*math.pi
-
                 #print("The scan theta is {}".format(objTheta))
-
-                
-                    
-
                 #print("The angle is {}".format(objTheta * 180 / 3.14))
-
-
-
-
-
                 # round coords to nearest 0.125m
                 obsX = round((config.x + (distance * math.cos(abs(objTheta))))*8)/8
                 # determine direction of Y coord
@@ -312,7 +301,7 @@ def dwa_control(x, u, config, ob):
 def atGoal(config, x):
     # check at goal
     if math.sqrt((x[0] - config.goalX)**2 + (x[1] - config.goalY)**2) \
-        <= config.robot_radius * 1.5:
+        <= config.robot_radius * 1.75:
         return True
     return False
 
@@ -323,8 +312,9 @@ def main():
     config = Config()
     # position of obstacles
     obs = Obstacles()
-    subOdom = rospy.Subscriber("/robot_4/odom", Odometry, config.assignOdomCoords)
+    subOdom = rospy.Subscriber("/robot_4/base_pose_ground_truth", Odometry, config.assignOdomCoords)
     subLaser = rospy.Subscriber("/robot_4/base_scan", LaserScan, obs.assignObs, config)
+    #globPose = rospy.Subscriber("/robot_0/base_pose_ground_truth",)
     #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
     pub = rospy.Publisher("/robot_4/cmd_vel", Twist, queue_size=1)
     speed = Twist()
@@ -346,6 +336,11 @@ def main():
             x[4] = u[1]
             speed.linear.x = x[3]
             speed.angular.z = x[4]
+            if config.stall_count >= 100:
+                goalComplete = config.goalCompleteRequest('r5',config.goal_name,0.0, False)
+                config.canSendCompletionRequest = False
+                config.stall_count = 0
+
         else:
             # if at goal then stay there until new goal published
             config.job_end = time.time()
@@ -353,7 +348,7 @@ def main():
             speed.angular.z = 0.0
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r5',config.goal_name,config.job_end - config.job_start)
+                goalComplete = config.goalCompleteRequest('r5',config.goal_name,config.job_end - config.job_start, True)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
@@ -362,17 +357,14 @@ def main():
             #time.sleep(5)
             goalCoord = config.goalServiceRequeset('r5')
             if goalCoord.success:
-                print("Goal x:", goalCoord.goal_x, "Goal y:", goalCoord.goal_y)
-                print("Time: ", goalCoord.stamp.secs)
-                config.goalX = goalCoord.goal_x - config.orig_x
-                config.goalY = goalCoord.goal_y - config.orig_y
+                config.goalX = goalCoord.goal_x #- config.orig_x
+                config.goalY = goalCoord.goal_y #- config.orig_y
                 config.goal_name = goalCoord.goal_name
                 config.busy = True
                 #config.goalReached = False
                 config.canSendCompletionRequest = True
                 config.job_start = time.time()
-            else:
-                print("No jobs available currently")
+                print("Goal x:", config.goalX, "Goal y:", config.goalY)
         pub.publish(speed)
         #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()

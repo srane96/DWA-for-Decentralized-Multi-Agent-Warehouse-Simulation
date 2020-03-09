@@ -15,7 +15,7 @@ class Config():
         # robot parameter
         #NOTE good params:
         #NOTE 0.55,0.1,1.0,1.6,3.2,0.15,0.05,0.1,1.7,2.4,0.1,3.2,0.18
-        self.max_speed = 0.8 # [m/s]
+        self.max_speed = 0.8  # [m/s]
         self.min_speed = 0.0  # [m/s]
         self.max_yawrate = 1.0  # [rad/s]
         self.max_accel = 1.5  # [m/ss]
@@ -27,7 +27,7 @@ class Config():
         self.to_goal_cost_gain = 2.4 #lower = detour
         self.speed_cost_gain = 0.1 #lower = faster
         self.obs_cost_gain = 25.0 #lower z= fearless
-        self.robot_radius = 0.60  # [m]
+        self.robot_radius = 0.6  # [m]
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
@@ -312,11 +312,11 @@ def main():
     config = Config()
     # position of obstacles
     obs = Obstacles()
-    subOdom = rospy.Subscriber("/robot_0/base_pose_ground_truth", Odometry, config.assignOdomCoords)
-    subLaser = rospy.Subscriber("/robot_0/base_scan", LaserScan, obs.assignObs, config)
+    subOdom = rospy.Subscriber("/robot_6/base_pose_ground_truth", Odometry, config.assignOdomCoords)
+    subLaser = rospy.Subscriber("/robot_6/base_scan", LaserScan, obs.assignObs, config)
     #globPose = rospy.Subscriber("/robot_0/base_pose_ground_truth",)
     #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
-    pub = rospy.Publisher("/robot_0/cmd_vel", Twist, queue_size=1)
+    pub = rospy.Publisher("/robot_6/cmd_vel", Twist, queue_size=1)
     speed = Twist()
     # initial state [x(m), y(m), theta(rad), v(m/s), omega(rad/s)]
     x = np.array([config.x, config.y, config.th, 0.0, 0.0])
@@ -337,7 +337,7 @@ def main():
             speed.linear.x = x[3]
             speed.angular.z = x[4]
             if config.stall_count >= 100:
-                goalComplete = config.goalCompleteRequest('r1',config.goal_name,0.0, False)
+                goalComplete = config.goalCompleteRequest('r7',config.goal_name,0.0, False)
                 config.canSendCompletionRequest = False
                 config.stall_count = 0
 
@@ -348,14 +348,14 @@ def main():
             speed.angular.z = 0.0
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest('r1',config.goal_name,config.job_end - config.job_start, True)
+                goalComplete = config.goalCompleteRequest('r7',config.goal_name,config.job_end - config.job_start, True)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
         if not config.busy:
             pub.publish(speed)
             #time.sleep(5)
-            goalCoord = config.goalServiceRequeset('r1')
+            goalCoord = config.goalServiceRequeset('r7')
             if goalCoord.success:
                 config.goalX = goalCoord.goal_x #- config.orig_x
                 config.goalY = goalCoord.goal_y #- config.orig_y

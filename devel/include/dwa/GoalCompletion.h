@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::dwa::GoalCompletion > {
   static const char* value()
   {
-    return "ee36b4ebac3e5489cfd86ace878cd28e";
+    return "14abb92b206f3d51f81cd4863d4d4a6e";
   }
 
   static const char* value(const ::dwa::GoalCompletion&) { return value(); }

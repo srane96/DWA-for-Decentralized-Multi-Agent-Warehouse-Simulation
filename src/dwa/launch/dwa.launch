@@ -6,4 +6,20 @@
 	<node name="rob3" pkg="dwa" type="rob3.py" output="screen"/>
 	<node name="rob4" pkg="dwa" type="rob4.py" output="screen"/>
 	<node name="rob5" pkg="dwa" type="rob5.py" output="screen"/>
+	<node name="rob6" pkg="dwa" type="rob6.py" output="screen"/>
+	<node name="rob7" pkg="dwa" type="rob7.py" output="screen"/>
+	<node name="rob8" pkg="dwa" type="rob8.py" output="screen"/>
+	<node name="rob9" pkg="dwa" type="rob9.py" output="screen"/>
+	<node name="rob10" pkg="dwa" type="rob10.py" output="screen"/>
+
+	<node name="rob11" pkg="dwa" type="rob11.py" output="screen"/>
+	<node name="rob12" pkg="dwa" type="rob12.py" output="screen"/>
+	<node name="rob13" pkg="dwa" type="rob13.py" output="screen"/>
+	<node name="rob14" pkg="dwa" type="rob14.py" output="screen"/>
+	<node name="rob15" pkg="dwa" type="rob15.py" output="screen"/>
+	<node name="rob16" pkg="dwa" type="rob16.py" output="screen"/>
+	<node name="rob17" pkg="dwa" type="rob17.py" output="screen"/>
+	<node name="rob18" pkg="dwa" type="rob18.py" output="screen"/>
+	<node name="rob19" pkg="dwa" type="rob19.py" output="screen"/>
+	<node name="rob20" pkg="dwa" type="rob20.py" output="screen"/>
 </launch>
