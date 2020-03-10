@@ -4,7 +4,7 @@ define kinect ranger
   (
     range_max 6.5
     fov 58.0
-    samples 640
+    samples 512
   )
   # generic model properties
   color "black"

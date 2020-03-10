@@ -96,7 +96,7 @@ class Obstacles():
     def assignObs(self, msg, config):
 
         deg = len(msg.ranges)   # Number of degrees - varies in Sim vs real world
-        # print("Laser degree length {}".format(deg))
+        #print("Laser degree length {}".format(deg))
         self.obst = set()   # reset the obstacle set to only keep visible objects
 
         maxAngle = 270
