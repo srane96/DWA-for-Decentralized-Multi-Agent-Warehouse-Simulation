@@ -8,8 +8,6 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/siddhesh/warehouse_sim/warehouse_dwa/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/siddhesh/warehouse_sim/warehouse_dwa/build"
-export PYTHONPATH="/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/siddhesh/warehouse_sim/warehouse_dwa/devel/share/common-lisp"
 export ROS_PACKAGE_PATH="/home/siddhesh/warehouse_sim/warehouse_dwa/src:$ROS_PACKAGE_PATH"

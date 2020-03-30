@@ -3,6 +3,6 @@ prefix=/home/siddhesh/warehouse_sim/warehouse_dwa/install
 Name: dwa
 Description: Description of dwa
 Version: 0.0.0
-Cflags: -I/home/siddhesh/warehouse_sim/warehouse_dwa/install/include
-Libs: -L/home/siddhesh/warehouse_sim/warehouse_dwa/install/lib 
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
 Requires: message_runtime

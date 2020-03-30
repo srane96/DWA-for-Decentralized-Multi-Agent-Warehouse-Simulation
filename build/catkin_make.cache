@@ -1,2 +1,2 @@
-dwa
+Astar-ROS:dwa
 -DCATKIN_DEVEL_PREFIX=/home/siddhesh/warehouse_sim/warehouse_dwa/devel -DCMAKE_INSTALL_PREFIX=/home/siddhesh/warehouse_sim/warehouse_dwa/install -G Unix Makefiles

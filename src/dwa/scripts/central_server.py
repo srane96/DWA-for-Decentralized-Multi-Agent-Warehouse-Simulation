@@ -7,6 +7,8 @@ from dwa.srv import GoalRequest, GoalRequestResponse, GoalCompletion, GoalComple
 file_output_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
 file_input_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
 file_robot_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
+
+ns = rospy.get_namespace()
 class Robot():
 	def __init__(self):
 		self.map_x = 0.0
@@ -57,7 +59,7 @@ class Server():
 	# service call request handling
 	def assign_task(self, req):
 		res = GoalRequestResponse()
-		#print(req.bot_name ," requesting for the job")
+		print(req.bot_name ," requesting for the job")
 		if len(self.goals) == 0:
 			res.success = False
 			#print("Goals are empty")
@@ -91,7 +93,8 @@ class Server():
 			res.goal_name = goal_name
 			self.goals.pop(0)
 			print(goal_name," assigned to ", req.bot_name)
-			self.free_robots.remove(req.bot_name)
+			if req.bot_name in self.free_robots:
+				self.free_robots.remove(req.bot_name)
 			self.busy_robots.append(req.bot_name)
 			print("Free", self.free_robots)
 			print("Busy", self.busy_robots)
@@ -108,7 +111,8 @@ class Server():
 		else:
 			print(req.bot_name,"Completed goal", req.goal_name, " in ", req.total_time)
 			self.free_robots.append(req.bot_name)
-			self.busy_robots.remove(req.bot_name)
+			if req.bot_name in self.busy_robots:
+				self.busy_robots.remove(req.bot_name)
 			print("Free", self.free_robots)
 			print("Busy", self.busy_robots)	
 			res.success = True
