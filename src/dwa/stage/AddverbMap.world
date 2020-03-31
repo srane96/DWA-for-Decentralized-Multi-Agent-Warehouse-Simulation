@@ -35,14 +35,16 @@ floorplan
   #bitmap "blank_map.png"
   size [ 100.0 60.0 2.0 ]  #[ 10.0 10.0 2.0 ]
   #size[50.0 30.0 2.0]
-  pose [  5.0  5.0 0.0 0.0 ]
+  #pose [  5.0  5.0 0.0 0.0 ]
+  pose [  50.0  30.0 0.0 0.0 ]
 )
+
 
 # throw in a robot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 32.0 0.0 0.0]
+  pose [5.0 58.0 0.0 0.0]
   name "turtlebot"
   color "red"
 )
@@ -50,7 +52,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 30.0 0.0 0.0]
+  pose [5.0 56.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
@@ -59,7 +61,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 28.0 0.0 0.0]
+  pose [5.0 54.0 0.0 0.0]
   name "turtlebot"
   color "green"
 )
@@ -68,7 +70,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 26.0 0.0 0.0]
+  pose [5.0 52.0 0.0 0.0]
   name "turtlebot"
   color "blue"
 )
@@ -76,57 +78,56 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-42.0 24.0 0.0 0.0]
+  pose [5.0 50.0 0.0 0.0]
   name "turtlebot"
   color "yellow"
 )
 
 turtlebot
 (
-  pose [-42.0 22.0 0.0 0.0]
+  pose [5.0 48.0 0.0 0.0]
   name "turtlebot"
   color "cyan"
 )
 
 turtlebot
 (
-  pose [-42.0 20.0 0.0 0.0]
+  pose [5.0 46.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-42.0 18.0 0.0 0.0]
+  pose [5.0 44.0 0.0 0.0]
   name "turtlebot"
   color "pink"
 )
 
 turtlebot
 (
-  pose [-42.0 16.0 0.0 0.0]
+  pose [5.0 42.0 0.0 0.0]
   name "turtlebot"
   color "grey"
 )
 
 turtlebot
 (
-  pose [-42.0 14.0 0.0 0.0]
+  pose [5.0 40.0 0.0 0.0]
   name "turtlebot"
   color "orange"
 )
 
 turtlebot
 (
-  pose [-42.0 12.0 0.0 0.0]
+  pose [5.0 38.0 0.0 0.0]
   name "turtlebot"
   color "brown"
 )
 
 turtlebot
 (
-  # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 10.0 0.0 0.0]
+  pose [5.0 36.0 0.0 0.0]
   name "turtlebot"
   color "red"
 )
@@ -135,7 +136,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 8.0 0.0 0.0]
+  pose [5.0 34.0 0.0 0.0]
   name "turtlebot"
   color "green"
 )
@@ -144,7 +145,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 6.0 0.0 0.0]
+  pose [5.0 32.0 0.0 0.0]
   name "turtlebot"
   color "blue"
 )
@@ -152,49 +153,49 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-42.0 4.0 0.0 0.0]
+  pose [5.0 30.0 0.0 0.0]
   name "turtlebot"
   color "yellow"
 )
 
 turtlebot
 (
-  pose [-42.0 2.0 0.0 0.0]
+  pose [5.0 28.0 0.0 0.0]
   name "turtlebot"
   color "cyan"
 )
 
 turtlebot
 (
-  pose [-42.0 0.0 0.0 0.0]
+  pose [5.0 26.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-42.0 -2.0 0.0 0.0]
+  pose [5.0 24.0 0.0 0.0]
   name "turtlebot"
   color "pink"
 )
 
 turtlebot
 (
-  pose [-42.0 -4.0 0.0 0.0]
+  pose [5.0 22.0 0.0 0.0]
   name "turtlebot"
   color "grey"
 )
 
 turtlebot
 (
-  pose [-42.0 -6.0 0.0 0.0]
+  pose [5.0 20.0 0.0 0.0]
   name "turtlebot"
   color "orange"
 )
 
 turtlebot
 (
-  pose [-42.0 -8.0 0.0 0.0]
+  pose [5.0 18.0 0.0 0.0]
   name "turtlebot"
   color "brown"
 )
@@ -203,7 +204,7 @@ turtlebot
 
 turtlebot
 (
-  pose [-42.0 -10.0 0.0 0.0]
+  pose [5.0 16.0 0.0 0.0]
   name "turtlebot"
   color "red"
 )
@@ -211,7 +212,7 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-42.0 -12.0 0.0 0.0]
+  pose [5.0 14.0 0.0 0.0]
   name "turtlebot"
   color "green"
 )
@@ -220,7 +221,7 @@ turtlebot
 turtlebot
 (
   # pose [ -2.5.0 -11.0 0.0 0.0 ]
-  pose [-42.0 -14.0 0.0 0.0]
+  pose [5.0 12.0 0.0 0.0]
   name "turtlebot"
   color "blue"
 )
@@ -228,49 +229,49 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-42.0 -16.0 0.0 0.0]
+  pose [5.0 10.0 0.0 0.0]
   name "turtlebot"
   color "yellow"
 )
 
 turtlebot
 (
-  pose [-42.0 -18.0 0.0 0.0]
+  pose [5.0 8.0 0.0 0.0]
   name "turtlebot"
   color "cyan"
 )
 
 turtlebot
 (
-  pose [-42.0 -20.0 0.0 0.0]
+  pose [5.0 6.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-42.0 -22.0 0.0 0.0]
+  pose [5.0 4.0 0.0 0.0]
   name "turtlebot"
   color "pink"
 )
 
 turtlebot
 (
-  pose [-38.0 32.0 0.0 0.0]
+  pose [5.0 2.0 0.0 0.0]
   name "turtlebot"
   color "grey"
 )
 
 turtlebot
 (
-  pose [-38.0 30.0 0.0 0.0]
+  pose [7.0 32.0 0.0 0.0]
   name "turtlebot"
   color "orange"
 )
 
 turtlebot
 (
-  pose [-38.0 28.0 0.0 0.0]
+  pose [7.0 34.0 0.0 0.0]
   name "turtlebot"
   color "brown"
 )
@@ -279,21 +280,21 @@ turtlebot
 
 turtlebot
 (
-  pose [-38.0 26.0 0.0 0.0]
+  pose [7.0 36.0 0.0 0.0]
   name "turtlebot"
   color "red"
 )
 
 turtlebot
 (
-  pose [-38.0 24.0 0.0 0.0]
+  pose [7.0 38.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-38.0 22.0 0.0 0.0]
+  pose [7.0 40.0 0.0 0.0]
   name "turtlebot"
   color "green"
 )
@@ -301,7 +302,7 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-38.0 20.0 0.0 0.0]
+  pose [7.0 42.0 0.0 0.0]
   name "turtlebot"
   color "blue"
 )
@@ -309,49 +310,49 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-38.0 18.0 0.0 0.0]
+  pose [7.0 44.0 0.0 0.0]
   name "turtlebot"
   color "yellow"
 )
 
 turtlebot
 (
-  pose [-38.0 16.0 0.0 0.0]
+  pose [7.0 46.0 0.0 0.0]
   name "turtlebot"
   color "cyan"
 )
 
 turtlebot
 (
-  pose [-38.0 14.0 0.0 0.0]
+  pose [7.0 48.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-38.0 12.0 0.0 0.0]
+  pose [7.0 50.0 0.0 0.0]
   name "turtlebot"
   color "pink"
 )
 
 turtlebot
 (
-  pose [-38.0 10.0 0.0 0.0]
+  pose [7.0 52.0 0.0 0.0]
   name "turtlebot"
   color "grey"
 )
 
 turtlebot
 (
-  pose [-38.0 8.0 0.0 0.0]
+  pose [7.0 54.0 0.0 0.0]
   name "turtlebot"
   color "orange"
 )
 
 turtlebot
 (
-  pose [-38.0 6.0 0.0 0.0]
+  pose [7.0 56.0 0.0 0.0]
   name "turtlebot"
   color "brown"
 )
@@ -360,21 +361,21 @@ turtlebot
 
 turtlebot
 (
-  pose [-38.0 4.0 0.0 0.0]
+  pose [7.0 58.0 0.0 0.0]
   name "turtlebot"
   color "red"
 )
 
 turtlebot
 (
-  pose [-38.0 2.0 0.0 0.0]
+  pose [3.0 58.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-38.0 0.0 0.0 0.0]
+  pose [3.0 56.0 0.0 0.0]
   name "turtlebot"
   color "green"
 )
@@ -382,7 +383,7 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-38.0 -2.0 0.0 0.0]
+  pose [3.0 54.0 0.0 0.0]
   name "turtlebot"
   color "blue"
 )
@@ -390,49 +391,84 @@ turtlebot
 # throw in a robot
 turtlebot
 (
-  pose [-38.0 -4.0 0.0 0.0]
+  pose [3.0 52.0 0.0 0.0]
   name "turtlebot"
   color "yellow"
 )
 
 turtlebot
 (
-  pose [-38.0 -6.0 0.0 0.0]
+  pose [3.0 50.0 0.0 0.0]
   name "turtlebot"
   color "cyan"
 )
 
 turtlebot
 (
-  pose [-38.0 -8.0 0.0 0.0]
+  pose [3.0 48.0 0.0 0.0]
   name "turtlebot"
   color "purple"
 )
 
 turtlebot
 (
-  pose [-38.0 -10.0 0.0 0.0]
+  pose [3.0 46.0 0.0 0.0]
   name "turtlebot"
   color "pink"
 )
 
 turtlebot
 (
-  pose [-38.0 -12.0 0.0 0.0]
+  pose [3.0 44.0 0.0 0.0]
   name "turtlebot"
   color "grey"
 )
 
 turtlebot
 (
-  pose [-38.0 -14.0 0.0 0.0]
+  pose [3.0 42.0 0.0 0.0]
   name "turtlebot"
   color "orange"
 )
 
 turtlebot
 (
-  pose [-38.0 -16.0 0.0 0.0]
+  pose [3.0 40.0 0.0 0.0]
+  name "turtlebot"
+  color "brown"
+)
+
+turtlebot
+(
+  pose [3.0 38.0 0.0 0.0]
+  name "turtlebot"
+  color "brown"
+)
+
+turtlebot
+(
+  pose [3.0 36.0 0.0 0.0]
+  name "turtlebot"
+  color "brown"
+)
+
+turtlebot
+(
+  pose [3.0 34.0 0.0 0.0]
+  name "turtlebot"
+  color "brown"
+)
+
+turtlebot
+(
+  pose [3.0 32.0 0.0 0.0]
+  name "turtlebot"
+  color "brown"
+)
+
+turtlebot
+(
+  pose [3.0 30.0 0.0 0.0]
   name "turtlebot"
   color "brown"
 )

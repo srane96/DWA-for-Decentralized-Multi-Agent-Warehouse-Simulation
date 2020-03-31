@@ -3,7 +3,7 @@ import rospy
 import math
 import numpy as np
 from geometry_msgs.msg import Twist, PointStamped, PoseWithCovarianceStamped, PoseStamped
-from nav_msgs.msg import Odometry
+from nav_msgs.msg import Odometry, Path
 from sensor_msgs.msg import LaserScan
 from tf.transformations import euler_from_quaternion
 import time
@@ -20,6 +20,7 @@ ns = rospy.get_namespace()
 BOT_NAME = ns
 ODOM_TOPIC = ns + "base_pose_ground_truth"
 LASER_TOPIC = ns + "base_scan"
+PATH_TOPIC = ns + "nav_path"
 CMD_VEL = ns + "cmd_vel"
 INI_POS = ns + "initialpose"
 GOAL_POS = ns + "move_base_simple/goal"
@@ -61,6 +62,8 @@ class Config():
         self.job_start = 0.0;
         self.job_end = 0.0;
         self.stall_count = 0;
+        self.path = []
+        self.got_path = False
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -75,6 +78,12 @@ class Config():
         else:
             self.stall_count = 0
 
+    def astarPath(self, msg):
+        #print("Path received: ", len(msg.poses))
+        del self.path[:]
+        for p in msg.poses:
+            self.path.append([p.pose.position.x, p.pose.position.y])
+        print("Path ", self.path)
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
         self.goalX = msg.point.x
@@ -335,6 +344,7 @@ def main():
     obs = Obstacles()
     subOdom = rospy.Subscriber(ODOM_TOPIC, Odometry, config.assignOdomCoords)
     subLaser = rospy.Subscriber(LASER_TOPIC, LaserScan, obs.assignObs, config)
+    subPath = rospy.Subscriber(PATH_TOPIC, Path, config.astarPath)
     #globPose = rospy.Subscriber("/robot_0/base_pose_ground_truth",)
     #subGoal = rospy.Subscriber("/clicked_point", PointStamped, config.goalCB)
     pub = rospy.Publisher(CMD_VEL, Twist, queue_size=1)
@@ -367,8 +377,8 @@ def main():
                 config.stall_count = 0
 
             pose_stamped.header.stamp = rospy.Time.now() 
-            pose_stamped.pose.pose.position.x = 0.0 #config.x 
-            pose_stamped.pose.pose.position.y = 0.0 #config.y 
+            pose_stamped.pose.pose.position.x = config.x 
+            pose_stamped.pose.pose.position.y = config.y 
             pose_stamped.pose.pose.position.z = 0.0
 
         else:
@@ -401,8 +411,8 @@ def main():
 
                 
                 goal_stamped.header.stamp = rospy.Time.now()
-                goal_stamped.pose.position.x = 20.0 #config.goalX 
-                goal_stamped.pose.position.y = 0.0 #config.goalY
+                goal_stamped.pose.position.x = config.goalX 
+                goal_stamped.pose.position.y = config.goalY
                 goal_stamped.pose.position.z = 0.0
                 
 
