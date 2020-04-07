@@ -5,7 +5,7 @@ import numpy as np
 from dwa.srv import GoalRequest, GoalRequestResponse, GoalCompletion, GoalCompletionResponse
 # information of each robot
 file_output_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
-file_input_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
+file_input_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/input_log/"
 file_robot_path = "/home/siddhesh/warehouse_sim/warehouse_dwa/output_log/"
 
 ns = rospy.get_namespace()
@@ -28,12 +28,28 @@ class Server():
 		self.time_log = []
 		self.free_robots = self.read_all_robots()
 		print("Free",self.free_robots)
-		self.goals_log = self.read_all_goals()
+		#self.goals_log = self.read_all_goals()
+		self.goals_log = self.read_new_goals()
 		self.goals = [x for x in self.goals_log.keys()]
 		print("Goals",self.goals)
 		rospy.init_node('central_server')
 		self.service = rospy.Service('task_assign', GoalRequest, self.assign_task)
 		self.service = rospy.Service('goal_complete',GoalCompletion, self.goal_complete)
+
+
+	def read_new_goals(self):
+		goals_log = {}
+		path = file_input_path + "task1000robot10.txt"
+		f = open(path, "r")
+		count = 0
+		lines = f.readlines()
+		for line in lines:
+			line_arr = str.split(line)
+			name = 'g' + str(count)
+			goals_log[name] = [int(line_arr[1]), int(line_arr[2])]
+			count += 1
+		f.close()
+		return goals_log
 
 	def read_all_robots(self):
 		robots = []

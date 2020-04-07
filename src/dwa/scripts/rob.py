@@ -79,11 +79,13 @@ class Config():
             self.stall_count = 0
 
     def astarPath(self, msg):
-        #print("Path received: ", len(msg.poses))
-        del self.path[:]
-        for p in msg.poses:
-            self.path.append([p.pose.position.x, p.pose.position.y])
-        print("Path ", self.path)
+        if not self.busy:
+            #print("Path received: ", len(msg.poses))
+            del self.path[:]
+            for p in msg.poses:
+                self.path.append([p.pose.position.x, p.pose.position.y])
+            #print("Path ", self.path)
+        self.busy = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
         self.goalX = msg.point.x
@@ -421,8 +423,8 @@ def main():
                 config.job_start = time.time()
                 print("Goal x:", config.goalX, "Goal y:", config.goalY)
         pub.publish(speed)
-        pub_init.publish(pose_stamped)
-        pub_goal.publish(goal_stamped)
+        #pub_init.publish(pose_stamped)
+        #pub_goal.publish(goal_stamped)
         #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 

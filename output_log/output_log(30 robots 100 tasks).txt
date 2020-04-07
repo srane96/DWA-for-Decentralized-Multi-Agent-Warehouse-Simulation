@@ -1,0 +1,102 @@
+=====================  Completed Goals  ================================
+g18  [59, 41]  /robot_28/  71.5563809872secs
+g84  [37, 59]  /robot_0/  159.09120512secs
+g85  [20, 43]  /robot_1/  89.8473539352secs
+g87  [85, 12]  /robot_7/  443.959246874secs
+g81  [11, 22]  /robot_5/  113.403105021secs
+g82  [57, 14]  /robot_6/  717.438860893secs
+g83  [16, 35]  /robot_10/  54.1202130318secs
+g65  [94, 4]  /robot_28/  217.307051897secs
+g88  [35, 58]  /robot_3/  93.2350080013secs
+g89  [33, 1]  /robot_14/  1113.9125669secs
+g75  [56, 33]  /robot_0/  816.560921907secs
+g27  [56, 3]  /robot_21/  1084.05443406secs
+g24  [70, 22]  /robot_10/  535.244509935secs
+g25  [84, 19]  /robot_19/  207.079602003secs
+g22  [25, 7]  /robot_29/  11.3950049877secs
+g23  [35, 13]  /robot_28/  51.2881588936secs
+g20  [63, 8]  /robot_24/  102.82038784secs
+g74  [75, 24]  /robot_17/  525.549235821secs
+g10  [38, 56]  /robot_0/  73.3138170242secs
+g77  [57, 7]  /robot_28/  155.006733179secs
+g28  [1, 10]  /robot_29/  1023.16086698secs
+g29  [50, 44]  /robot_3/  1062.87672305secs
+g40  [97, 17]  /robot_4/  90.1202800274secs
+g41  [13, 28]  /robot_19/  179.369215012secs
+g42  [96, 48]  /robot_0/  38.9034659863secs
+g69  [87, 4]  /robot_26/  132.5783391secs
+g45  [79, 29]  /robot_27/  79.2335751057secs
+g46  [68, 5]  /robot_8/  129.005419016secs
+g47  [79, 58]  /robot_9/  100.926016092secs
+g48  [79, 47]  /robot_26/  234.473055124secs
+g71  [12, 15]  /robot_27/  207.934796095secs
+g60  [5, 7]  /robot_5/  245.928309917secs
+g61  [15, 15]  /robot_28/  192.203252077secs
+g67  [20, 14]  /robot_26/  169.439821005secs
+g64  [27, 44]  /robot_6/  208.065237999secs
+g70  [57, 39]  /robot_9/  76.3333559036secs
+g7  [87, 42]  /robot_4/  265.217468977secs
+g6  [62, 11]  /robot_16/  171.373937845secs
+g5  [31, 47]  /robot_17/  128.664917946secs
+g4  [94, 21]  /robot_8/  306.221904039secs
+g3  [6, 9]  /robot_19/  57.5154981613secs
+g2  [97, 26]  /robot_9/  313.341271877secs
+g1  [33, 24]  /robot_24/  87.4760861397secs
+g19  [13, 3]  /robot_19/  193.571599007secs
+g94  [59, 3]  /robot_5/  268.280852079secs
+g9  [60, 46]  /robot_15/  167.632684946secs
+g8  [99, 17]  /robot_22/  1116.45632696secs
+g97  [10, 12]  /robot_5/  18.230244875secs
+g96  [11, 55]  /robot_26/  99.4232239723secs
+g95  [14, 47]  /robot_11/  371.876394033secs
+g98  [98, 36]  /robot_19/  23.82122612secs
+g93  [27, 43]  /robot_17/  279.482506037secs
+g92  [27, 5]  /robot_6/  280.211933851secs
+g91  [3, 19]  /robot_8/  298.667723894secs
+g63  [69, 55]  /robot_10/  623.379544973secs
+g99  [85, 37]  /robot_28/  83.617784977secs
+g68  [91, 21]  /robot_28/  110.772735834secs
+g31  [49, 56]  /robot_12/  172.937185049secs
+g30  [93, 6]  /robot_27/  301.765264988secs
+g32  [24, 53]  /robot_26/  318.717865944secs
+g35  [23, 10]  /robot_29/  80.3044250011secs
+g34  [72, 24]  /robot_23/  204.801862955secs
+g37  [10, 20]  /robot_20/  14.3501930237secs
+g36  [12, 29]  /robot_21/  46.5005168915secs
+g39  [93, 30]  /robot_25/  319.291810989secs
+g38  [22, 27]  /robot_28/  85.0640358925secs
+g21  [61, 5]  /robot_1/  1045.88337708secs
+g14  [2, 18]  /robot_27/  101.625787973secs
+g53  [91, 27]  /robot_5/  484.981601954secs
+g52  [18, 57]  /robot_17/  213.845391035secs
+g51  [81, 28]  /robot_28/  206.183392048secs
+g50  [82, 44]  /robot_0/  123.605252981secs
+g57  [14, 35]  /robot_15/  121.631196022secs
+g56  [88, 8]  /robot_16/  126.444303036secs
+g73  [20, 57]  /robot_8/  490.425215006secs
+g72  [36, 9]  /robot_7/  190.326608896secs
+g17  [10, 13]  /robot_14/  72.228536129secs
+g16  [84, 41]  /robot_29/  175.345711946secs
+g15  [14, 39]  /robot_22/  166.954732895secs
+g58  [81, 14]  /robot_19/  15.5395920277secs
+g13  [50, 24]  /robot_21/  61.1016361713secs
+g12  [46, 20]  /robot_5/  60.260144949secs
+g11  [40, 24]  /robot_1/  75.3035159111secs
+g62  [43, 6]  /robot_27/  529.682987928secs
+==============  Crashed Robots & incomplete goals ======================
+g44  [69, 45] failed to complete by /robot_16/
+g54  [72, 48] failed to complete by /robot_24/
+g86  [49, 17] failed to complete by /robot_2/
+g76  [42, 42] failed to complete by /robot_4/
+g80  [76, 5] failed to complete by /robot_11/
+g66  [32, 59] failed to complete by /robot_7/
+g0  [87, 41] failed to complete by /robot_13/
+g55  [35, 16] failed to complete by /robot_12/
+g90  [54, 7] failed to complete by /robot_26/
+g59  [71, 42] failed to complete by /robot_23/
+g79  [90, 35] failed to complete by /robot_19/
+g49  [21, 45] failed to complete by /robot_25/
+g78  [37, 1] failed to complete by /robot_9/
+g26  [77, 42] failed to complete by /robot_20/
+g33  [52, 44] failed to complete by /robot_18/
+g43  [81, 17] failed to complete by /robot_15/

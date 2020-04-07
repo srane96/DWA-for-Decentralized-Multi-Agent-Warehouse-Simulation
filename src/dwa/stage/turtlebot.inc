@@ -1,15 +1,15 @@
-define kinect ranger
-(
-  sensor
-  (
-    range_max 6.5
-    fov 58.0
-    samples 512
-  )
+#define kinect ranger
+#(
+#  sensor
+#  (
+#    range_max 6.5
+#    fov 58.0
+#    samples 512
+#  )
   # generic model properties
-  color "black"
-  size [ 0.06 0.15 0.03 ]
-)
+# color "black"
+#  size [ 0.06 0.15 0.03 ]
+#)
 
 define turtlebot position
 (
@@ -23,5 +23,5 @@ define turtlebot position
   drive "diff"
   color "gray"
   
-  kinect(pose [ -0.1 0.0 -0.11 0.0 ])
+  #kinect(pose [ -0.1 0.0 -0.11 0.0 ])
 )

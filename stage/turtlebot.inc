@@ -1,3 +1,4 @@
+'''
 define kinect ranger
 (
   sensor
@@ -5,12 +6,13 @@ define kinect ranger
     range_max 6.5
     fov 58.0
     samples 640
+    #samples 320
   )
   # generic model properties
   color "black"
   size [ 0.06 0.15 0.03 ]
 )
-
+'''
 define turtlebot position
 (
   pose [ 0.0 0.0 0.0 0.0 ]
