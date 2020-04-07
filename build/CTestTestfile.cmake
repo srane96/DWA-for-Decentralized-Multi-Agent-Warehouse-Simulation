@@ -7,3 +7,4 @@
 subdirs(gtest)
 subdirs(Astar-ROS)
 subdirs(dwa)
+subdirs(warehouse_manager)

@@ -1,0 +1,8 @@
+prefix=/home/siddhesh/warehouse_sim/warehouse_dwa/devel
+
+Name: warehouse_manager
+Description: Description of warehouse_manager
+Version: 0.0.0
+Cflags: -I/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include -I/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs message_runtime

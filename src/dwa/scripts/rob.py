@@ -53,6 +53,9 @@ class Config():
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
+        self.start_x = 0.0
+        self.start_y = 0.0
+        self.start_assigned = False
         self.goalX = self.x  
         self.goalY = self.y
         self.goal_name = ""
@@ -64,11 +67,18 @@ class Config():
         self.stall_count = 0;
         self.path = []
         self.got_path = False
+        self.distance_x = 0.0
+        self.distance_y = 0.0
+        self.crashed = False
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
         self.x = msg.pose.pose.position.x
         self.y = msg.pose.pose.position.y
+        if not self.start_assigned:
+            self.start_x = self.x
+            self.start_y = self.y
+            self.start_assigned = True
         rot_q = msg.pose.pose.orientation
         (roll,pitch,theta) = \
             euler_from_quaternion ([rot_q.x,rot_q.y,rot_q.z,rot_q.w])
@@ -84,8 +94,8 @@ class Config():
             del self.path[:]
             for p in msg.poses:
                 self.path.append([p.pose.position.x, p.pose.position.y])
-            #print("Path ", self.path)
         self.busy = True
+        print("Path ", self.path)
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
         self.goalX = msg.point.x
@@ -101,11 +111,11 @@ class Config():
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
-    def goalCompleteRequest(self, name, goal_name, time, status):
+    def goalCompleteRequest(self, name, goal_name, time, dist, status):
         rospy.wait_for_service('/server/goal_complete')
         try:
             goalComplete = rospy.ServiceProxy('/server/goal_complete',GoalCompletion)
-            response = goalComplete(name, goal_name, time, status)
+            response = goalComplete(name, goal_name, time, dist, status)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -359,9 +369,10 @@ def main():
     x = np.array([config.x, config.y, config.th, 0.0, 0.0])
     # initial linear and angular velocities
     u = np.array([0.0, 0.0])
-
     # runs until terminated externally
     while not rospy.is_shutdown():
+        if config.crashed:
+            continue
         if (atGoal(config,x) == False):
             #start_time = time.time()
             u = dwa_control(x, u, config, obs.obst)
@@ -373,10 +384,12 @@ def main():
             x[4] = u[1]
             speed.linear.x = x[3]
             speed.angular.z = x[4]
-            if config.stall_count >= 100:
-                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,0.0, False)
+            if config.stall_count >= 100 and not config.crashed:
+                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,0.0, 0.0, False)
                 config.canSendCompletionRequest = False
                 config.stall_count = 0
+                config.crashed = True
+
 
             pose_stamped.header.stamp = rospy.Time.now() 
             pose_stamped.pose.pose.position.x = config.x 
@@ -388,9 +401,11 @@ def main():
             config.job_end = time.time()
             speed.linear.x = 0.0
             speed.angular.z = 0.0
+            config.start_assigned = False
             config.busy = False
             if config.canSendCompletionRequest:
-                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,config.job_end - config.job_start, True)
+                final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
+                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,config.job_end - config.job_start, final_dist, True)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
@@ -402,8 +417,8 @@ def main():
             if goalCoord.success:
 
                 # send goal and current position to the Astar planner
-                print("publishing to ", INI_POS)
-                print("publishing goal to", GOAL_POS)
+                #print("publishing to ", INI_POS)
+                #print("publishing goal to", GOAL_POS)
 
 
                 config.goalX = goalCoord.goal_x #- config.orig_x
@@ -423,6 +438,7 @@ def main():
                 config.job_start = time.time()
                 print("Goal x:", config.goalX, "Goal y:", config.goalY)
         pub.publish(speed)
+        #print("StartX: ", config.start_x, "StartY: ", config.start_y)
         #pub_init.publish(pose_stamped)
         #pub_goal.publish(goal_stamped)
         #print("X: ", config.x, " Y: ", config.y)

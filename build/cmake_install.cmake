@@ -128,6 +128,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/siddhesh/warehouse_sim/warehouse_dwa/build/gtest/cmake_install.cmake")
   include("/home/siddhesh/warehouse_sim/warehouse_dwa/build/Astar-ROS/cmake_install.cmake")
   include("/home/siddhesh/warehouse_sim/warehouse_dwa/build/dwa/cmake_install.cmake")
+  include("/home/siddhesh/warehouse_sim/warehouse_dwa/build/warehouse_manager/cmake_install.cmake")
 
 endif()
 

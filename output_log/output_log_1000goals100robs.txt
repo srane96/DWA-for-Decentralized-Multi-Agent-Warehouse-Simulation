@@ -1,0 +1,25 @@
+################################### Goals Log ##########################################################
+Goal: [4,32]  Robot: 14 Time: 24.9002070427 Distance: 2.2360679775
+Goal: [8,25]  Robot: 20 Time: 31.6092450619 Distance: 7.61577310586
+Goal: [6,9]  Robot: 28 Time: 32.3429071903 Distance: 7.07106781187
+Goal: [12,33]  Robot: 10 Time: 49.9241819382 Distance: 8.60232526704
+Goal: [18,18]  Robot: 21 Time: 49.9385621548 Distance: 13.152946438
+Robot: 34 was crashed Goal: [99,17]
+Robot: 4 was crashed Goal: [20,11]
+Goal: [12,11]  Robot: 28 Time: 25.2391870022 Distance: 6.83150050968
+Goal: [11,26]  Robot: 14 Time: 40.7738730907 Distance: 8.19258356283
+Goal: [20,26]  Robot: 40 Time: 92.9645400047 Distance: 18.8679622641
+Goal: [11,3]  Robot: 19 Time: 99.9504230022 Distance: 18.0277563773
+Goal: [40,56]  Robot: 0 Time: 139.017791033 Distance: 35.0570962859
+Goal: [35,21]  Robot: 27 Time: 147.728387833 Distance: 34.4818792991
+Goal: [9,15]  Robot: 7 Time: 151.390300035 Distance: 29.2745623366
+Goal: [2,9]  Robot: 15 Time: 155.728293896 Distance: 19.2353840617
+Robot: 17 was crashed Goal: [26,57]
+Robot: 2 was crashed Goal: [98,41]
+Goal: [22,42]  Robot: 25 Time: 160.652445078 Distance: 38.0131556175
+Robot: 1 was crashed Goal: [88,41]
+Goal: [45,21]  Robot: 18 Time: 173.085456848 Distance: 40.0124980475
+Goal: [47,46]  Robot: 36 Time: 181.865224838 Distance: 43.0464865001
+Goal: [29,2]  Robot: 14 Time: 134.554715157 Distance: 30.9781730486
+Goal: [26,4]  Robot: 14 Time: 17.014840126 Distance: 3.30267918192
+Goal: [16,3]  Robot: 15 Time: 72.1657061577 Distance: 14.6456958816

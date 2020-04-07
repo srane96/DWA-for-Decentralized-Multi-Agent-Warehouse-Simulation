@@ -24,6 +24,7 @@ class GoalCompletionRequest {
       this.bot_name = null;
       this.goal_name = null;
       this.total_time = null;
+      this.total_dist = null;
       this.goal_success = null;
     }
     else {
@@ -45,6 +46,12 @@ class GoalCompletionRequest {
       else {
         this.total_time = 0.0;
       }
+      if (initObj.hasOwnProperty('total_dist')) {
+        this.total_dist = initObj.total_dist
+      }
+      else {
+        this.total_dist = 0.0;
+      }
       if (initObj.hasOwnProperty('goal_success')) {
         this.goal_success = initObj.goal_success
       }
@@ -62,6 +69,8 @@ class GoalCompletionRequest {
     bufferOffset = _serializer.string(obj.goal_name, buffer, bufferOffset);
     // Serialize message field [total_time]
     bufferOffset = _serializer.float64(obj.total_time, buffer, bufferOffset);
+    // Serialize message field [total_dist]
+    bufferOffset = _serializer.float64(obj.total_dist, buffer, bufferOffset);
     // Serialize message field [goal_success]
     bufferOffset = _serializer.bool(obj.goal_success, buffer, bufferOffset);
     return bufferOffset;
@@ -77,6 +86,8 @@ class GoalCompletionRequest {
     data.goal_name = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [total_time]
     data.total_time = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [total_dist]
+    data.total_dist = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [goal_success]
     data.goal_success = _deserializer.bool(buffer, bufferOffset);
     return data;
@@ -86,7 +97,7 @@ class GoalCompletionRequest {
     let length = 0;
     length += object.bot_name.length;
     length += object.goal_name.length;
-    return length + 17;
+    return length + 25;
   }
 
   static datatype() {
@@ -96,7 +107,7 @@ class GoalCompletionRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '22e0497ce00bb79fe47670d1bbb8f780';
+    return '330c8dc5f852f64f1abe79cb5ccc6ddf';
   }
 
   static messageDefinition() {
@@ -105,6 +116,7 @@ class GoalCompletionRequest {
     string bot_name
     string goal_name
     float64 total_time
+    float64 total_dist
     bool goal_success
     
     `;
@@ -135,6 +147,13 @@ class GoalCompletionRequest {
     }
     else {
       resolved.total_time = 0.0
+    }
+
+    if (msg.total_dist !== undefined) {
+      resolved.total_dist = msg.total_dist;
+    }
+    else {
+      resolved.total_dist = 0.0
     }
 
     if (msg.goal_success !== undefined) {
@@ -222,6 +241,6 @@ class GoalCompletionResponse {
 module.exports = {
   Request: GoalCompletionRequest,
   Response: GoalCompletionResponse,
-  md5sum() { return '14abb92b206f3d51f81cd4863d4d4a6e'; },
+  md5sum() { return '22c96589d92d22574649c35ddc8339a8'; },
   datatype() { return 'dwa/GoalCompletion'; }
 };

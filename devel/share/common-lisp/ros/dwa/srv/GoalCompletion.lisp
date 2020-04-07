@@ -22,6 +22,11 @@
     :initarg :total_time
     :type cl:float
     :initform 0.0)
+   (total_dist
+    :reader total_dist
+    :initarg :total_dist
+    :type cl:float
+    :initform 0.0)
    (goal_success
     :reader goal_success
     :initarg :goal_success
@@ -52,6 +57,11 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dwa-srv:total_time-val is deprecated.  Use dwa-srv:total_time instead.")
   (total_time m))
 
+(cl:ensure-generic-function 'total_dist-val :lambda-list '(m))
+(cl:defmethod total_dist-val ((m <GoalCompletion-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dwa-srv:total_dist-val is deprecated.  Use dwa-srv:total_dist instead.")
+  (total_dist m))
+
 (cl:ensure-generic-function 'goal_success-val :lambda-list '(m))
 (cl:defmethod goal_success-val ((m <GoalCompletion-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader dwa-srv:goal_success-val is deprecated.  Use dwa-srv:goal_success instead.")
@@ -71,6 +81,15 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
   (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'goal_name))
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'total_time))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'total_dist))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -109,6 +128,16 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'total_time) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'total_dist) (roslisp-utils:decode-double-float-bits bits)))
     (cl:setf (cl:slot-value msg 'goal_success) (cl:not (cl:zerop (cl:read-byte istream))))
   msg
 )
@@ -120,20 +149,21 @@
   "dwa/GoalCompletionRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<GoalCompletion-request>)))
   "Returns md5sum for a message object of type '<GoalCompletion-request>"
-  "14abb92b206f3d51f81cd4863d4d4a6e")
+  "22c96589d92d22574649c35ddc8339a8")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'GoalCompletion-request)))
   "Returns md5sum for a message object of type 'GoalCompletion-request"
-  "14abb92b206f3d51f81cd4863d4d4a6e")
+  "22c96589d92d22574649c35ddc8339a8")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<GoalCompletion-request>)))
   "Returns full string definition for message of type '<GoalCompletion-request>"
-  (cl:format cl:nil "string bot_name~%string goal_name~%float64 total_time~%bool goal_success~%~%~%"))
+  (cl:format cl:nil "string bot_name~%string goal_name~%float64 total_time~%float64 total_dist~%bool goal_success~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'GoalCompletion-request)))
   "Returns full string definition for message of type 'GoalCompletion-request"
-  (cl:format cl:nil "string bot_name~%string goal_name~%float64 total_time~%bool goal_success~%~%~%"))
+  (cl:format cl:nil "string bot_name~%string goal_name~%float64 total_time~%float64 total_dist~%bool goal_success~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <GoalCompletion-request>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'bot_name))
      4 (cl:length (cl:slot-value msg 'goal_name))
+     8
      8
      1
 ))
@@ -143,6 +173,7 @@
     (cl:cons ':bot_name (bot_name msg))
     (cl:cons ':goal_name (goal_name msg))
     (cl:cons ':total_time (total_time msg))
+    (cl:cons ':total_dist (total_dist msg))
     (cl:cons ':goal_success (goal_success msg))
 ))
 ;//! \htmlinclude GoalCompletion-response.msg.html
@@ -184,10 +215,10 @@
   "dwa/GoalCompletionResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<GoalCompletion-response>)))
   "Returns md5sum for a message object of type '<GoalCompletion-response>"
-  "14abb92b206f3d51f81cd4863d4d4a6e")
+  "22c96589d92d22574649c35ddc8339a8")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'GoalCompletion-response)))
   "Returns md5sum for a message object of type 'GoalCompletion-response"
-  "14abb92b206f3d51f81cd4863d4d4a6e")
+  "22c96589d92d22574649c35ddc8339a8")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<GoalCompletion-response>)))
   "Returns full string definition for message of type '<GoalCompletion-response>"
   (cl:format cl:nil "bool success~%~%~%"))

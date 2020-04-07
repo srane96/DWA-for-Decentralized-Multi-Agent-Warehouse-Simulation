@@ -5,10 +5,19 @@
 
     <node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
 	<node name="central_server" pkg="dwa" type="central_server.py" output="screen" ns="server"/>
-	
 
 	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_0" output="screen"/>
-	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0"/>
+
+
+	<!--
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0">
+		<param name="Euclidean" value="true"/>
+	        <param name="OccupyThresh" value="-1"/>
+	        <param name="InflateRadius" value="0.25"/>
+	        <param name="rate" value="10"/>
+    </node>
+	-->
+
 	<node name="rob1" pkg="dwa" type="rob.py" ns="robot_1" output="screen"/>
 	<node name="rob2" pkg="dwa" type="rob.py" ns="robot_2" output="screen"/>
 	<node name="rob3" pkg="dwa" type="rob.py" ns="robot_3" output="screen"/>
@@ -18,14 +27,7 @@
 	<node name="rob7" pkg="dwa" type="rob.py" ns="robot_7" output="screen"/>
 	<node name="rob8" pkg="dwa" type="rob.py" ns="robot_8" output="screen"/>
 	<node name="rob9" pkg="dwa" type="rob.py" ns="robot_9" output="screen"/>
-
-    <!--
-        <param name="Euclidean" value="true"/>
-        <param name="OccupyThresh" value="-1"/>
-        <param name="InflateRadius" value="0.25"/>
-        <param name="rate" value="10"/>
-    </node>
-	-->
+        
 	<node name="rob10" pkg="dwa" type="rob.py" ns="robot_10" output="screen"/>
 	<node name="rob11" pkg="dwa" type="rob.py" ns="robot_11" output="screen"/>  
 	<node name="rob12" pkg="dwa" type="rob.py" ns="robot_12" output="screen"/>
@@ -59,7 +61,7 @@
 	<node name="rob38" pkg="dwa" type="rob.py" ns="robot_38" output="screen"/>
 	<node name="rob39" pkg="dwa" type="rob.py" ns="robot_39" output="screen"/>
 	<node name="rob40" pkg="dwa" type="rob.py" ns="robot_40" output="screen"/>
-
+	
 	<node name="rob41" pkg="dwa" type="rob.py" ns="robot_41" output="screen"/>  
 	<node name="rob42" pkg="dwa" type="rob.py" ns="robot_42" output="screen"/>
 	<node name="rob43" pkg="dwa" type="rob.py" ns="robot_43" output="screen"/>
