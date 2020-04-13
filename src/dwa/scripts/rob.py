@@ -93,7 +93,11 @@ class Config():
             del self.path[:]
             for p in msg.poses:
                 self.path.append([p.pose.position.x, p.pose.position.y])
-            print("Path ", self.path)
+            print("Path ", len(self.path))
+            del self.path[0:20]
+            self.goalX = self.path[0][0]
+            self.goalY = self.path[0][1]
+            print("Goal: ", self.goalX, " ", self.goalY)
             self.path_received = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
@@ -342,7 +346,7 @@ def dwa_control(x, u, config, ob):
 def atGoal(config, x):
     # check at goal
     if math.sqrt((x[0] - config.goalX)**2 + (x[1] - config.goalY)**2) \
-        <= config.robot_radius * 1.75:
+        <= config.robot_radius * 2.0:
         return True
     return False
 
@@ -392,16 +396,25 @@ def main():
             pose_stamped.pose.pose.position.z = 0.0
 
         else:
-            # if at goal then stay there until new goal published
-            config.job_end = time.time()
-            speed.linear.x = 0.0
-            speed.angular.z = 0.0
-            config.start_assigned = False
-            config.busy = False
-            if config.canSendCompletionRequest:
-                final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
-                goalComplete = config.goalCompleteRequest(BOT_NAME,config.job_end - config.job_start, final_dist)
-                config.canSendCompletionRequest = False
+            if len(config.path) != 0:
+                config.goalX = config.path[0][0]
+                config.goalY = config.path[0][1]
+                print("Goalllll: ", config.goalX, " ", config.goalY)
+                if len(config.path) < 20:
+                    config.goalX = config.path[len(config.path)-1][0]
+                    config.goalY = config.path[len(config.path)-1][1]
+                del config.path[0:20]
+            else:
+                # if at goal then stay there until new goal published
+                config.job_end = time.time()
+                speed.linear.x = 0.0
+                speed.angular.z = 0.0
+                config.start_assigned = False
+                config.busy = False
+                if config.canSendCompletionRequest:
+                    final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
+                    goalComplete = config.goalCompleteRequest(BOT_NAME,config.job_end - config.job_start, final_dist)
+                    config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
         if not config.busy:
@@ -422,8 +435,8 @@ def main():
 
                 
                 goal_stamped.header.stamp = rospy.Time.now()
-                goal_stamped.pose.position.x = config.goalX 
-                goal_stamped.pose.position.y = config.goalY
+                goal_stamped.pose.position.x = goalCoord.x #config.goalX 
+                goal_stamped.pose.position.y = goalCoord.y #config.goalY
                 goal_stamped.pose.position.z = 0.0
                 
 
@@ -437,11 +450,16 @@ def main():
                 print(disp);
                 while True:
                     continue;
-        pub.publish(speed)
+        
+
+        if config.path_received:
+            pub.publish(speed)
         #print("StartX: ", config.start_x, "StartY: ", config.start_y)
+        
         if not config.path_received:
             pub_init.publish(pose_stamped)
             pub_goal.publish(goal_stamped)
+        
         #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 

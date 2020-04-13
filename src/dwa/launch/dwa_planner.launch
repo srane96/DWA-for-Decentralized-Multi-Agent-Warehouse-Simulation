@@ -4,21 +4,13 @@
 
 
     <node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
-	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0">
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_5">
         <param name="Euclidean" value="true"/>
         <param name="OccupyThresh" value="-1"/>
         <param name="InflateRadius" value="0.25"/>
         <param name="rate" value="10"/>
     </node>
-	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_0" output="screen"/>
-	
-
-	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_1">
-        <param name="Euclidean" value="true"/>
-        <param name="OccupyThresh" value="-1"/>
-        <param name="InflateRadius" value="0.25"/>
-        <param name="rate" value="10"/>
-    </node>
+	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_5" output="screen"/>
 
 	<!--
 	<node name="rob1" pkg="dwa" type="rob.py" ns="robot_1" output="screen"/>

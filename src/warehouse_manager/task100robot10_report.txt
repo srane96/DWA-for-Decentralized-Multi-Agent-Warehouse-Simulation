@@ -117,3 +117,45 @@ Time timae and distance:
 
 
 Total-  Time: 4.55954e-41 Distance: 0
+
+
+Time timae and distance: 
+Robot: 10 Time: 0 Distance: 1.84655e-38
+Robot: 9 Time: 0 Distance: 1.84655e-38
+Robot: 8 Time: 0 Distance: 1.84655e-38
+Robot: 7 Time: 0 Distance: 1.84655e-38
+Robot: 6 Time: 0 Distance: 1.84655e-38
+Robot: 5 Time: 0 Distance: 1.84655e-38
+Robot: 4 Time: 0 Distance: 1.84655e-38
+Robot: 3 Time: 0 Distance: 1.84655e-38
+Robot: 2 Time: 0 Distance: 1.84655e-38
+Robot: 1 Time: 0 Distance: 1.84655e-38
+Robot: 0 Time: 1.37496 Distance: 582.151
+
+
+Total-  Time: 1.37496 Distance: 582.151
+
+
+Time timae and distance: 
+
+
+Total-  Time: 4.58659e-41 Distance: 0
+
+
+Time timae and distance: 
+Robot: 10 Time: 0 Distance: 8.48779e+30
+Robot: 9 Time: 0 Distance: 8.48779e+30
+Robot: 8 Time: 0 Distance: 8.48779e+30
+Robot: 7 Time: 0 Distance: 8.48779e+30
+Robot: 6 Time: 0 Distance: 8.48779e+30
+Robot: 5 Time: 0 Distance: 8.48779e+30
+Robot: 4 Time: 0 Distance: 8.48779e+30
+Robot: 3 Time: 0 Distance: 8.48779e+30
+Robot: 2 Time: 0 Distance: 8.48779e+30
+Robot: 1 Time: 0 Distance: 8.48779e+30
+Robot: 0 Time: 16.5254 Distance: 8.48779e+30
+
+
+Total-  Time: 16.5254 Distance: 9.33657e+31
+
+
