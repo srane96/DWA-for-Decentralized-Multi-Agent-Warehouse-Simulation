@@ -4,15 +4,35 @@
 
 
     <node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
-	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_5">
-        <param name="Euclidean" value="true"/>
-        <param name="OccupyThresh" value="-1"/>
-        <param name="InflateRadius" value="0.25"/>
-        <param name="rate" value="10"/>
-    </node>
-	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_5" output="screen"/>
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0" />
+	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_0" output="screen"/>
 
 	<!--
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_2" />
+	<node name="rob2" pkg="dwa" type="rob.py" ns="robot_2" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_3" />
+	<node name="rob3" pkg="dwa" type="rob.py" ns="robot_3" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_4" />
+	<node name="rob4" pkg="dwa" type="rob.py" ns="robot_4" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_5" />
+	<node name="rob5" pkg="dwa" type="rob.py" ns="robot_5" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_6" />
+	<node name="rob6" pkg="dwa" type="rob.py" ns="robot_6" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_7" />
+	<node name="rob7" pkg="dwa" type="rob.py" ns="robot_7" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_8" />
+	<node name="rob8" pkg="dwa" type="rob.py" ns="robot_8" output="screen"/>
+
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_9" />
+	<node name="rob9" pkg="dwa" type="rob.py" ns="robot_9" output="screen"/>
+
+	
 	<node name="rob1" pkg="dwa" type="rob.py" ns="robot_1" output="screen"/>
 	<node name="rob2" pkg="dwa" type="rob.py" ns="robot_2" output="screen"/>
 	<node name="rob3" pkg="dwa" type="rob.py" ns="robot_3" output="screen"/>

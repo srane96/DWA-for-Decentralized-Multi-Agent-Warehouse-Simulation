@@ -58,6 +58,10 @@ class Config():
         self.start_assigned = False
         self.goalX = self.x  
         self.goalY = self.y
+
+        ## Final goal if path is not found
+        self.goalFinalX = 0.0
+        self.goalFinalY = 0.0
         self.r = rospy.Rate(20)
         self.busy = False
         self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
@@ -97,7 +101,7 @@ class Config():
             del self.path[0:20]
             self.goalX = self.path[0][0]
             self.goalY = self.path[0][1]
-            print("Goal: ", self.goalX, " ", self.goalY)
+            #print("Goal: ", self.goalX, " ", self.goalY)
             self.path_received = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
@@ -396,14 +400,16 @@ def main():
             pose_stamped.pose.pose.position.z = 0.0
 
         else:
+            # Waypoint reached
             if len(config.path) != 0:
                 config.goalX = config.path[0][0]
                 config.goalY = config.path[0][1]
                 print("Goalllll: ", config.goalX, " ", config.goalY)
-                if len(config.path) < 20:
-                    config.goalX = config.path[len(config.path)-1][0]
-                    config.goalY = config.path[len(config.path)-1][1]
-                del config.path[0:20]
+                if len(config.path) < 30:
+                    config.goalX = config.goalFinalX
+                    config.goalY = config.goalFinalY
+                del config.path[0:30]
+
             else:
                 # if at goal then stay there until new goal published
                 config.job_end = time.time()
@@ -433,6 +439,9 @@ def main():
                 config.goalY = goalCoord.y #- config.orig_y
                 config.busy = True
 
+                config.goalFinalX = config.goalX
+                config.goalFinalY = config.goalY
+
                 
                 goal_stamped.header.stamp = rospy.Time.now()
                 goal_stamped.pose.position.x = goalCoord.x #config.goalX 
@@ -452,8 +461,8 @@ def main():
                     continue;
         
 
-        if config.path_received:
-            pub.publish(speed)
+        #if config.path_received:
+        pub.publish(speed)
         #print("StartX: ", config.start_x, "StartY: ", config.start_y)
         
         if not config.path_received:
