@@ -129,15 +129,15 @@ import struct
 
 
 class Robot_Task_RequestResponse(genpy.Message):
-  _md5sum = "209f516d3eb691f0663e25cb750d67c1"
+  _md5sum = "c7c4051d2307bca9981d8732c7b53196"
   _type = "warehouse_manager/Robot_Task_RequestResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float64 x
 float64 y
-
+bool task_available
 """
-  __slots__ = ['x','y']
-  _slot_types = ['float64','float64']
+  __slots__ = ['x','y','task_available']
+  _slot_types = ['float64','float64','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -147,7 +147,7 @@ float64 y
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       x,y
+       x,y,task_available
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -160,9 +160,12 @@ float64 y
         self.x = 0.
       if self.y is None:
         self.y = 0.
+      if self.task_available is None:
+        self.task_available = False
     else:
       self.x = 0.
       self.y = 0.
+      self.task_available = False
 
   def _get_types(self):
     """
@@ -177,7 +180,7 @@ float64 y
     """
     try:
       _x = self
-      buff.write(_get_struct_2d().pack(_x.x, _x.y))
+      buff.write(_get_struct_2dB().pack(_x.x, _x.y, _x.task_available))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -190,8 +193,9 @@ float64 y
       end = 0
       _x = self
       start = end
-      end += 16
-      (_x.x, _x.y,) = _get_struct_2d().unpack(str[start:end])
+      end += 17
+      (_x.x, _x.y, _x.task_available,) = _get_struct_2dB().unpack(str[start:end])
+      self.task_available = bool(self.task_available)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -205,7 +209,7 @@ float64 y
     """
     try:
       _x = self
-      buff.write(_get_struct_2d().pack(_x.x, _x.y))
+      buff.write(_get_struct_2dB().pack(_x.x, _x.y, _x.task_available))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -219,8 +223,9 @@ float64 y
       end = 0
       _x = self
       start = end
-      end += 16
-      (_x.x, _x.y,) = _get_struct_2d().unpack(str[start:end])
+      end += 17
+      (_x.x, _x.y, _x.task_available,) = _get_struct_2dB().unpack(str[start:end])
+      self.task_available = bool(self.task_available)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -229,14 +234,14 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2d = None
-def _get_struct_2d():
-    global _struct_2d
-    if _struct_2d is None:
-        _struct_2d = struct.Struct("<2d")
-    return _struct_2d
+_struct_2dB = None
+def _get_struct_2dB():
+    global _struct_2dB
+    if _struct_2dB is None:
+        _struct_2dB = struct.Struct("<2dB")
+    return _struct_2dB
 class Robot_Task_Request(object):
   _type          = 'warehouse_manager/Robot_Task_Request'
-  _md5sum = '77322248a0582fccda2d5e89f799e25b'
+  _md5sum = '36a9ef11aba4366f1c5c38340e3f6f3d'
   _request_class  = Robot_Task_RequestRequest
   _response_class = Robot_Task_RequestResponse

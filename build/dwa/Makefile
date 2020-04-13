@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/siddhesh/warehouse_sim/warehouse_dwa/src
+CMAKE_SOURCE_DIR = /home/siddhesh/warehouse_sim/warehouse_dwa_final/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/siddhesh/warehouse_sim/warehouse_dwa/build
+CMAKE_BINARY_DIR = /home/siddhesh/warehouse_sim/warehouse_dwa_final/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -135,14 +135,14 @@ install/strip/fast: install/strip
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/siddhesh/warehouse_sim/warehouse_dwa/build/CMakeFiles /home/siddhesh/warehouse_sim/warehouse_dwa/build/dwa/CMakeFiles/progress.marks
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/siddhesh/warehouse_sim/warehouse_dwa/build/CMakeFiles 0
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/siddhesh/warehouse_sim/warehouse_dwa_final/build/CMakeFiles /home/siddhesh/warehouse_sim/warehouse_dwa_final/build/dwa/CMakeFiles/progress.marks
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/siddhesh/warehouse_sim/warehouse_dwa_final/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/clean
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/clean
 .PHONY : clean
 
 # The main clean target
@@ -152,22 +152,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/preinstall
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/preinstall
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_gennodejs.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_gennodejs.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_gennodejs.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_gennodejs.dir/rule
 
 # Convenience name for target.
@@ -177,57 +177,12 @@ dwa_gennodejs: dwa/CMakeFiles/dwa_gennodejs.dir/rule
 
 # fast build rule for target.
 dwa_gennodejs/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_gennodejs.dir/build.make dwa/CMakeFiles/dwa_gennodejs.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_gennodejs.dir/build.make dwa/CMakeFiles/dwa_gennodejs.dir/build
 .PHONY : dwa_gennodejs/fast
 
 # Convenience name for target.
-dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
-.PHONY : dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
-
-# Convenience name for target.
-_dwa_generate_messages_check_deps_GoalRequest: dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
-
-.PHONY : _dwa_generate_messages_check_deps_GoalRequest
-
-# fast build rule for target.
-_dwa_generate_messages_check_deps_GoalRequest/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/build
-.PHONY : _dwa_generate_messages_check_deps_GoalRequest/fast
-
-# Convenience name for target.
-dwa/CMakeFiles/dwa_genpy.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_genpy.dir/rule
-.PHONY : dwa/CMakeFiles/dwa_genpy.dir/rule
-
-# Convenience name for target.
-dwa_genpy: dwa/CMakeFiles/dwa_genpy.dir/rule
-
-.PHONY : dwa_genpy
-
-# fast build rule for target.
-dwa_genpy/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_genpy.dir/build.make dwa/CMakeFiles/dwa_genpy.dir/build
-.PHONY : dwa_genpy/fast
-
-# Convenience name for target.
-dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
-.PHONY : dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-dwa_generate_messages_eus: dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
-
-.PHONY : dwa_generate_messages_eus
-
-# fast build rule for target.
-dwa_generate_messages_eus/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_eus.dir/build.make dwa/CMakeFiles/dwa_generate_messages_eus.dir/build
-.PHONY : dwa_generate_messages_eus/fast
-
-# Convenience name for target.
 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
 .PHONY : dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/rule
 
 # Convenience name for target.
@@ -237,12 +192,12 @@ _dwa_generate_messages_check_deps_GoalCompletion: dwa/CMakeFiles/_dwa_generate_m
 
 # fast build rule for target.
 _dwa_generate_messages_check_deps_GoalCompletion/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalCompletion.dir/build
 .PHONY : _dwa_generate_messages_check_deps_GoalCompletion/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_geneus.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_geneus.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_geneus.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_geneus.dir/rule
 
 # Convenience name for target.
@@ -252,12 +207,12 @@ dwa_geneus: dwa/CMakeFiles/dwa_geneus.dir/rule
 
 # fast build rule for target.
 dwa_geneus/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_geneus.dir/build.make dwa/CMakeFiles/dwa_geneus.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_geneus.dir/build.make dwa/CMakeFiles/dwa_geneus.dir/build
 .PHONY : dwa_geneus/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages_py.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_py.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_py.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -267,12 +222,12 @@ dwa_generate_messages_py: dwa/CMakeFiles/dwa_generate_messages_py.dir/rule
 
 # fast build rule for target.
 dwa_generate_messages_py/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_py.dir/build.make dwa/CMakeFiles/dwa_generate_messages_py.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_py.dir/build.make dwa/CMakeFiles/dwa_generate_messages_py.dir/build
 .PHONY : dwa_generate_messages_py/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_genlisp.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_genlisp.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_genlisp.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_genlisp.dir/rule
 
 # Convenience name for target.
@@ -282,12 +237,57 @@ dwa_genlisp: dwa/CMakeFiles/dwa_genlisp.dir/rule
 
 # fast build rule for target.
 dwa_genlisp/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_genlisp.dir/build.make dwa/CMakeFiles/dwa_genlisp.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_genlisp.dir/build.make dwa/CMakeFiles/dwa_genlisp.dir/build
 .PHONY : dwa_genlisp/fast
 
 # Convenience name for target.
+dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
+.PHONY : dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
+
+# Convenience name for target.
+_dwa_generate_messages_check_deps_GoalRequest: dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/rule
+
+.PHONY : _dwa_generate_messages_check_deps_GoalRequest
+
+# fast build rule for target.
+_dwa_generate_messages_check_deps_GoalRequest/fast:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/build.make dwa/CMakeFiles/_dwa_generate_messages_check_deps_GoalRequest.dir/build
+.PHONY : _dwa_generate_messages_check_deps_GoalRequest/fast
+
+# Convenience name for target.
+dwa/CMakeFiles/dwa_genpy.dir/rule:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_genpy.dir/rule
+.PHONY : dwa/CMakeFiles/dwa_genpy.dir/rule
+
+# Convenience name for target.
+dwa_genpy: dwa/CMakeFiles/dwa_genpy.dir/rule
+
+.PHONY : dwa_genpy
+
+# fast build rule for target.
+dwa_genpy/fast:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_genpy.dir/build.make dwa/CMakeFiles/dwa_genpy.dir/build
+.PHONY : dwa_genpy/fast
+
+# Convenience name for target.
+dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
+.PHONY : dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+dwa_generate_messages_eus: dwa/CMakeFiles/dwa_generate_messages_eus.dir/rule
+
+.PHONY : dwa_generate_messages_eus
+
+# fast build rule for target.
+dwa_generate_messages_eus/fast:
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_eus.dir/build.make dwa/CMakeFiles/dwa_generate_messages_eus.dir/build
+.PHONY : dwa_generate_messages_eus/fast
+
+# Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages.dir/rule
 
 # Convenience name for target.
@@ -297,12 +297,12 @@ dwa_generate_messages: dwa/CMakeFiles/dwa_generate_messages.dir/rule
 
 # fast build rule for target.
 dwa_generate_messages/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages.dir/build.make dwa/CMakeFiles/dwa_generate_messages.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages.dir/build.make dwa/CMakeFiles/dwa_generate_messages.dir/build
 .PHONY : dwa_generate_messages/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages_cpp.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_cpp.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_cpp.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -312,12 +312,12 @@ dwa_generate_messages_cpp: dwa/CMakeFiles/dwa_generate_messages_cpp.dir/rule
 
 # fast build rule for target.
 dwa_generate_messages_cpp/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_cpp.dir/build.make dwa/CMakeFiles/dwa_generate_messages_cpp.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_cpp.dir/build.make dwa/CMakeFiles/dwa_generate_messages_cpp.dir/build
 .PHONY : dwa_generate_messages_cpp/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -327,12 +327,12 @@ dwa_generate_messages_nodejs: dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/ru
 
 # fast build rule for target.
 dwa_generate_messages_nodejs/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/build.make dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/build.make dwa/CMakeFiles/dwa_generate_messages_nodejs.dir/build
 .PHONY : dwa_generate_messages_nodejs/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_gencpp.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_gencpp.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_gencpp.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_gencpp.dir/rule
 
 # Convenience name for target.
@@ -342,12 +342,12 @@ dwa_gencpp: dwa/CMakeFiles/dwa_gencpp.dir/rule
 
 # fast build rule for target.
 dwa_gencpp/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_gencpp.dir/build.make dwa/CMakeFiles/dwa_gencpp.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_gencpp.dir/build.make dwa/CMakeFiles/dwa_gencpp.dir/build
 .PHONY : dwa_gencpp/fast
 
 # Convenience name for target.
 dwa/CMakeFiles/dwa_generate_messages_lisp.dir/rule:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_lisp.dir/rule
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f CMakeFiles/Makefile2 dwa/CMakeFiles/dwa_generate_messages_lisp.dir/rule
 .PHONY : dwa/CMakeFiles/dwa_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -357,7 +357,7 @@ dwa_generate_messages_lisp: dwa/CMakeFiles/dwa_generate_messages_lisp.dir/rule
 
 # fast build rule for target.
 dwa_generate_messages_lisp/fast:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_lisp.dir/build.make dwa/CMakeFiles/dwa_generate_messages_lisp.dir/build
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(MAKE) -f dwa/CMakeFiles/dwa_generate_messages_lisp.dir/build.make dwa/CMakeFiles/dwa_generate_messages_lisp.dir/build
 .PHONY : dwa_generate_messages_lisp/fast
 
 # Help Target
@@ -370,15 +370,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... dwa_gennodejs"
+	@echo "... _dwa_generate_messages_check_deps_GoalCompletion"
+	@echo "... dwa_geneus"
+	@echo "... dwa_generate_messages_py"
+	@echo "... dwa_genlisp"
 	@echo "... install/local"
 	@echo "... _dwa_generate_messages_check_deps_GoalRequest"
 	@echo "... edit_cache"
 	@echo "... dwa_genpy"
 	@echo "... dwa_generate_messages_eus"
-	@echo "... _dwa_generate_messages_check_deps_GoalCompletion"
-	@echo "... dwa_geneus"
-	@echo "... dwa_generate_messages_py"
-	@echo "... dwa_genlisp"
 	@echo "... list_install_components"
 	@echo "... install/strip"
 	@echo "... dwa_generate_messages"
@@ -397,6 +397,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/siddhesh/warehouse_sim/warehouse_dwa/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/siddhesh/warehouse_sim/warehouse_dwa_final/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

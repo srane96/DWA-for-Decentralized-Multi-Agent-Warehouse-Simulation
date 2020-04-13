@@ -1,8 +1,8 @@
-prefix=/home/siddhesh/warehouse_sim/warehouse_dwa/devel
+prefix=/home/siddhesh/warehouse_sim/warehouse_dwa_final/devel
 
 Name: dwa
 Description: Description of dwa
 Version: 0.0.0
-Cflags: -I/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include
+Cflags: -I/home/siddhesh/warehouse_sim/warehouse_dwa_final/devel/include
 Libs: -L${prefix}/lib 
 Requires: message_runtime

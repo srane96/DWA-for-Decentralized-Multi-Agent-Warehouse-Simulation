@@ -5,4 +5,6 @@
           X
           Y-VAL
           Y
+          TASK_AVAILABLE-VAL
+          TASK_AVAILABLE
 ))

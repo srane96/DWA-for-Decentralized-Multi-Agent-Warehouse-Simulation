@@ -8,7 +8,7 @@ from sensor_msgs.msg import LaserScan
 from tf.transformations import euler_from_quaternion
 import time
 from dwa.srv import GoalRequest, GoalRequestRequest, GoalCompletion, GoalCompletionRequest
-
+from warehouse_manager.srv import Robot_Task_Request, Robot_Task_Complete
 
 '''
 BOT_NAME = 'r0'
@@ -17,7 +17,7 @@ LASER_TOPIC = "/robot_0/base_scan"
 CMD_VEL = "/robot_0/cmd_vel"
 '''
 ns = rospy.get_namespace()
-BOT_NAME = ns
+BOT_NAME = ns[7:len(ns)-1]
 ODOM_TOPIC = ns + "base_pose_ground_truth"
 LASER_TOPIC = ns + "base_scan"
 PATH_TOPIC = ns + "nav_path"
@@ -58,7 +58,6 @@ class Config():
         self.start_assigned = False
         self.goalX = self.x  
         self.goalY = self.y
-        self.goal_name = ""
         self.r = rospy.Rate(20)
         self.busy = False
         self.canSendCompletionRequest = False #can send completion request after bot starts traversing 
@@ -69,7 +68,7 @@ class Config():
         self.got_path = False
         self.distance_x = 0.0
         self.distance_y = 0.0
-        self.crashed = False
+        self.path_received = False
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -89,33 +88,33 @@ class Config():
             self.stall_count = 0
 
     def astarPath(self, msg):
-        if not self.busy:
-            #print("Path received: ", len(msg.poses))
+        if not self.path_received: 
+            print("Path received: ", len(msg.poses))
             del self.path[:]
             for p in msg.poses:
                 self.path.append([p.pose.position.x, p.pose.position.y])
-        self.busy = True
-        print("Path ", self.path)
+            print("Path ", self.path)
+            self.path_received = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
     def goalCB(self,msg):
         self.goalX = msg.point.x
         self.goalY = msg.point.y
 
     def goalServiceRequeset(self, name):
-        rospy.wait_for_service('/server/task_assign')
-        #print("Service available for ", name)
+        rospy.wait_for_service('/request_available_task')
+        print("Service available for ", name)
         try:
-            goalCoord = rospy.ServiceProxy('/server/task_assign',GoalRequest)
+            goalCoord = rospy.ServiceProxy('/request_available_task',Robot_Task_Request)
             response = goalCoord(name)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
-    def goalCompleteRequest(self, name, goal_name, time, dist, status):
-        rospy.wait_for_service('/server/goal_complete')
+    def goalCompleteRequest(self, name, time, dist):
+        rospy.wait_for_service('/report_task_complete')
         try:
-            goalComplete = rospy.ServiceProxy('/server/goal_complete',GoalCompletion)
-            response = goalComplete(name, goal_name, time, dist, status)
+            goalComplete = rospy.ServiceProxy('/report_task_complete',Robot_Task_Complete)
+            response = goalComplete(name, time, dist)
             return response
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
@@ -371,8 +370,6 @@ def main():
     u = np.array([0.0, 0.0])
     # runs until terminated externally
     while not rospy.is_shutdown():
-        if config.crashed:
-            continue
         if (atGoal(config,x) == False):
             #start_time = time.time()
             u = dwa_control(x, u, config, obs.obst)
@@ -384,12 +381,10 @@ def main():
             x[4] = u[1]
             speed.linear.x = x[3]
             speed.angular.z = x[4]
-            if config.stall_count >= 100 and not config.crashed:
-                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,0.0, 0.0, False)
+            if config.stall_count >= 100:
+                goalComplete = config.goalCompleteRequest(BOT_NAME,0.0, 0.0)
                 config.canSendCompletionRequest = False
                 config.stall_count = 0
-                config.crashed = True
-
 
             pose_stamped.header.stamp = rospy.Time.now() 
             pose_stamped.pose.pose.position.x = config.x 
@@ -405,7 +400,7 @@ def main():
             config.busy = False
             if config.canSendCompletionRequest:
                 final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
-                goalComplete = config.goalCompleteRequest(BOT_NAME,config.goal_name,config.job_end - config.job_start, final_dist, True)
+                goalComplete = config.goalCompleteRequest(BOT_NAME,config.job_end - config.job_start, final_dist)
                 config.canSendCompletionRequest = False
 
         #print(config.x, " " , config.y)
@@ -414,16 +409,15 @@ def main():
             #time.sleep(5)
             #print(BOT_NAME, " Sent service request")
             goalCoord = config.goalServiceRequeset(BOT_NAME)
-            if goalCoord.success:
+            if goalCoord.task_available:
 
                 # send goal and current position to the Astar planner
-                #print("publishing to ", INI_POS)
-                #print("publishing goal to", GOAL_POS)
+                print("publishing to ", INI_POS)
+                print("publishing goal to", GOAL_POS)
 
 
-                config.goalX = goalCoord.goal_x #- config.orig_x
-                config.goalY = goalCoord.goal_y #- config.orig_y
-                config.goal_name = goalCoord.goal_name
+                config.goalX = goalCoord.x #- config.orig_x
+                config.goalY = goalCoord.y #- config.orig_y
                 config.busy = True
 
                 
@@ -436,11 +430,18 @@ def main():
                 #config.goalReached = False
                 config.canSendCompletionRequest = True
                 config.job_start = time.time()
+                config.path_received = False
                 print("Goal x:", config.goalX, "Goal y:", config.goalY)
+            else:
+                disp = BOT_NAME + " is Done"
+                print(disp);
+                while True:
+                    continue;
         pub.publish(speed)
         #print("StartX: ", config.start_x, "StartY: ", config.start_y)
-        #pub_init.publish(pose_stamped)
-        #pub_goal.publish(goal_stamped)
+        if not config.path_received:
+            pub_init.publish(pose_stamped)
+            pub_goal.publish(goal_stamped)
         #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 

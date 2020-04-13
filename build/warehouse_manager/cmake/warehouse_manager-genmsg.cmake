@@ -2,7 +2,7 @@
 
 message(STATUS "warehouse_manager: 2 messages, 2 services")
 
-set(MSG_I_FLAGS "-Iwarehouse_manager:/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg;-Inav_msgs:/opt/ros/kinetic/share/nav_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iwarehouse_manager:/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg;-Inav_msgs:/opt/ros/kinetic/share/nav_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,24 +17,24 @@ add_custom_target(warehouse_manager_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_custom_target(_warehouse_manager_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" "geometry_msgs/Twist:std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Vector3:geometry_msgs/Point:geometry_msgs/TwistWithCovariance:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:nav_msgs/Odometry"
 )
 
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_custom_target(_warehouse_manager_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" ""
 )
 
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_custom_target(_warehouse_manager_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" "geometry_msgs/Twist:std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Vector3:geometry_msgs/Point:geometry_msgs/TwistWithCovariance:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:nav_msgs/Odometry"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" ""
 )
 
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_custom_target(_warehouse_manager_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "warehouse_manager" "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" ""
 )
 
 #
@@ -44,27 +44,27 @@ add_custom_target(_warehouse_manager_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/warehouse_manager
 )
 _generate_msg_cpp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/warehouse_manager
 )
 
 ### Generating Services
 _generate_srv_cpp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/warehouse_manager
 )
 _generate_srv_cpp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/warehouse_manager
@@ -82,13 +82,13 @@ add_custom_target(warehouse_manager_generate_messages_cpp
 add_dependencies(warehouse_manager_generate_messages warehouse_manager_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_cpp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_cpp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_cpp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_cpp _warehouse_manager_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -101,27 +101,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS warehouse_manager_generate_messages
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/warehouse_manager
 )
 _generate_msg_eus(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/warehouse_manager
 )
 
 ### Generating Services
 _generate_srv_eus(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/warehouse_manager
 )
 _generate_srv_eus(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/warehouse_manager
@@ -139,13 +139,13 @@ add_custom_target(warehouse_manager_generate_messages_eus
 add_dependencies(warehouse_manager_generate_messages warehouse_manager_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_eus _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_eus _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_eus _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_eus _warehouse_manager_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -158,27 +158,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS warehouse_manager_generate_messages
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/warehouse_manager
 )
 _generate_msg_lisp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/warehouse_manager
 )
 
 ### Generating Services
 _generate_srv_lisp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/warehouse_manager
 )
 _generate_srv_lisp(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/warehouse_manager
@@ -196,13 +196,13 @@ add_custom_target(warehouse_manager_generate_messages_lisp
 add_dependencies(warehouse_manager_generate_messages warehouse_manager_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_lisp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_lisp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_lisp _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_lisp _warehouse_manager_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -215,27 +215,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS warehouse_manager_generate_messages
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/warehouse_manager
 )
 _generate_msg_nodejs(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/warehouse_manager
 )
 
 ### Generating Services
 _generate_srv_nodejs(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/warehouse_manager
 )
 _generate_srv_nodejs(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/warehouse_manager
@@ -253,13 +253,13 @@ add_custom_target(warehouse_manager_generate_messages_nodejs
 add_dependencies(warehouse_manager_generate_messages warehouse_manager_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_nodejs _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_nodejs _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_nodejs _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_nodejs _warehouse_manager_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -272,27 +272,27 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS warehouse_manager_generate_messages
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/warehouse_manager
 )
 _generate_msg_py(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Twist.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/TwistWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/kinetic/share/nav_msgs/cmake/../msg/Odometry.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/warehouse_manager
 )
 
 ### Generating Services
 _generate_srv_py(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/warehouse_manager
 )
 _generate_srv_py(warehouse_manager
-  "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv"
+  "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/warehouse_manager
@@ -310,13 +310,13 @@ add_custom_target(warehouse_manager_generate_messages_py
 add_dependencies(warehouse_manager_generate_messages warehouse_manager_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_py _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_py _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg/RobotInfo.msg" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_py _warehouse_manager_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
+get_filename_component(_filename "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv" NAME_WE)
 add_dependencies(warehouse_manager_generate_messages_py _warehouse_manager_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

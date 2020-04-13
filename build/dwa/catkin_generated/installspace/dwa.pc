@@ -1,4 +1,4 @@
-prefix=/home/siddhesh/warehouse_sim/warehouse_dwa/install
+prefix=/home/siddhesh/warehouse_sim/warehouse_dwa_final/install
 
 Name: dwa
 Description: Description of dwa

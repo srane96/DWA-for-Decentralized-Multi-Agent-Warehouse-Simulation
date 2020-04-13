@@ -25,11 +25,13 @@ struct Robot_Task_RequestResponse_
 
   Robot_Task_RequestResponse_()
     : x(0.0)
-    , y(0.0)  {
+    , y(0.0)
+    , task_available(false)  {
     }
   Robot_Task_RequestResponse_(const ContainerAllocator& _alloc)
     : x(0.0)
-    , y(0.0)  {
+    , y(0.0)
+    , task_available(false)  {
   (void)_alloc;
     }
 
@@ -40,6 +42,9 @@ struct Robot_Task_RequestResponse_
 
    typedef double _y_type;
   _y_type y;
+
+   typedef uint8_t _task_available_type;
+  _task_available_type task_available;
 
 
 
@@ -76,7 +81,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
-// {'nav_msgs': ['/opt/ros/kinetic/share/nav_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'warehouse_manager': ['/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/msg']}
+// {'nav_msgs': ['/opt/ros/kinetic/share/nav_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'warehouse_manager': ['/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -119,12 +124,12 @@ struct MD5Sum< ::warehouse_manager::Robot_Task_RequestResponse_<ContainerAllocat
 {
   static const char* value()
   {
-    return "209f516d3eb691f0663e25cb750d67c1";
+    return "c7c4051d2307bca9981d8732c7b53196";
   }
 
   static const char* value(const ::warehouse_manager::Robot_Task_RequestResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x209f516d3eb691f0ULL;
-  static const uint64_t static_value2 = 0x663e25cb750d67c1ULL;
+  static const uint64_t static_value1 = 0xc7c4051d2307bca9ULL;
+  static const uint64_t static_value2 = 0x981d8732c7b53196ULL;
 };
 
 template<class ContainerAllocator>
@@ -145,7 +150,7 @@ struct Definition< ::warehouse_manager::Robot_Task_RequestResponse_<ContainerAll
   {
     return "float64 x\n\
 float64 y\n\
-\n\
+bool task_available\n\
 ";
   }
 
@@ -166,6 +171,7 @@ namespace serialization
     {
       stream.next(m.x);
       stream.next(m.y);
+      stream.next(m.task_available);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -188,6 +194,8 @@ struct Printer< ::warehouse_manager::Robot_Task_RequestResponse_<ContainerAlloca
     Printer<double>::stream(s, indent + "  ", v.x);
     s << indent << "y: ";
     Printer<double>::stream(s, indent + "  ", v.y);
+    s << indent << "task_available: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.task_available);
   }
 };
 

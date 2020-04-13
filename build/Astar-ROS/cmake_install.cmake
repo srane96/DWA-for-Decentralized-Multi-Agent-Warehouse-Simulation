@@ -1,8 +1,8 @@
-# Install script for directory: /home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS
+# Install script for directory: /home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/siddhesh/warehouse_sim/warehouse_dwa/install")
+  set(CMAKE_INSTALL_PREFIX "/home/siddhesh/warehouse_sim/warehouse_dwa_final/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/siddhesh/warehouse_sim/warehouse_dwa/build/Astar-ROS/catkin_generated/installspace/astar.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/siddhesh/warehouse_sim/warehouse_dwa_final/build/Astar-ROS/catkin_generated/installspace/astar.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/astar/cmake" TYPE FILE FILES
-    "/home/siddhesh/warehouse_sim/warehouse_dwa/build/Astar-ROS/catkin_generated/installspace/astarConfig.cmake"
-    "/home/siddhesh/warehouse_sim/warehouse_dwa/build/Astar-ROS/catkin_generated/installspace/astarConfig-version.cmake"
+    "/home/siddhesh/warehouse_sim/warehouse_dwa_final/build/Astar-ROS/catkin_generated/installspace/astarConfig.cmake"
+    "/home/siddhesh/warehouse_sim/warehouse_dwa_final/build/Astar-ROS/catkin_generated/installspace/astarConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/astar" TYPE FILE FILES "/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/astar" TYPE FILE FILES "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/package.xml")
 endif()
 

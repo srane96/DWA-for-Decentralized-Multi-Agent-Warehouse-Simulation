@@ -55,10 +55,10 @@
   "warehouse_manager/Robot_Task_RequestRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Robot_Task_Request-request>)))
   "Returns md5sum for a message object of type '<Robot_Task_Request-request>"
-  "77322248a0582fccda2d5e89f799e25b")
+  "36a9ef11aba4366f1c5c38340e3f6f3d")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Robot_Task_Request-request)))
   "Returns md5sum for a message object of type 'Robot_Task_Request-request"
-  "77322248a0582fccda2d5e89f799e25b")
+  "36a9ef11aba4366f1c5c38340e3f6f3d")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Robot_Task_Request-request>)))
   "Returns full string definition for message of type '<Robot_Task_Request-request>"
   (cl:format cl:nil "string name~%~%~%"))
@@ -86,7 +86,12 @@
     :reader y
     :initarg :y
     :type cl:float
-    :initform 0.0))
+    :initform 0.0)
+   (task_available
+    :reader task_available
+    :initarg :task_available
+    :type cl:boolean
+    :initform cl:nil))
 )
 
 (cl:defclass Robot_Task_Request-response (<Robot_Task_Request-response>)
@@ -106,6 +111,11 @@
 (cl:defmethod y-val ((m <Robot_Task_Request-response>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader warehouse_manager-srv:y-val is deprecated.  Use warehouse_manager-srv:y instead.")
   (y m))
+
+(cl:ensure-generic-function 'task_available-val :lambda-list '(m))
+(cl:defmethod task_available-val ((m <Robot_Task_Request-response>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader warehouse_manager-srv:task_available-val is deprecated.  Use warehouse_manager-srv:task_available instead.")
+  (task_available m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <Robot_Task_Request-response>) ostream)
   "Serializes a message object of type '<Robot_Task_Request-response>"
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'x))))
@@ -126,6 +136,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'task_available) 1 0)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <Robot_Task_Request-response>) istream)
   "Deserializes a message object of type '<Robot_Task_Request-response>"
@@ -149,6 +160,7 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'y) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:setf (cl:slot-value msg 'task_available) (cl:not (cl:zerop (cl:read-byte istream))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<Robot_Task_Request-response>)))
@@ -159,26 +171,28 @@
   "warehouse_manager/Robot_Task_RequestResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Robot_Task_Request-response>)))
   "Returns md5sum for a message object of type '<Robot_Task_Request-response>"
-  "77322248a0582fccda2d5e89f799e25b")
+  "36a9ef11aba4366f1c5c38340e3f6f3d")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Robot_Task_Request-response)))
   "Returns md5sum for a message object of type 'Robot_Task_Request-response"
-  "77322248a0582fccda2d5e89f799e25b")
+  "36a9ef11aba4366f1c5c38340e3f6f3d")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Robot_Task_Request-response>)))
   "Returns full string definition for message of type '<Robot_Task_Request-response>"
-  (cl:format cl:nil "float64 x~%float64 y~%~%~%~%"))
+  (cl:format cl:nil "float64 x~%float64 y~%bool task_available~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Robot_Task_Request-response)))
   "Returns full string definition for message of type 'Robot_Task_Request-response"
-  (cl:format cl:nil "float64 x~%float64 y~%~%~%~%"))
+  (cl:format cl:nil "float64 x~%float64 y~%bool task_available~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Robot_Task_Request-response>))
   (cl:+ 0
      8
      8
+     1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <Robot_Task_Request-response>))
   "Converts a ROS message object to a list"
   (cl:list 'Robot_Task_Request-response
     (cl:cons ':x (x msg))
     (cl:cons ':y (y msg))
+    (cl:cons ':task_available (task_available msg))
 ))
 (cl:defmethod roslisp-msg-protocol:service-request-type ((msg (cl:eql 'Robot_Task_Request)))
   'Robot_Task_Request-request)

@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/include/Astar.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/include/Astar.h
 iostream
 -
 opencv2/opencv.hpp
 -
 
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/include/OccMapTransform.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/include/OccMapTransform.h
 iostream
 -
 cmath
@@ -24,18 +24,16 @@ tf/tf.h
 opencv2/opencv.hpp
 -
 
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/Astar.cpp
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/Astar.cpp
 Astar.h
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/Astar.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/Astar.h
 
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/OccMapTransform.cpp
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/OccMapTransform.cpp
 OccMapTransform.h
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/OccMapTransform.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/OccMapTransform.h
 
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/main.cpp
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/main.cpp
 iostream
--
-string
 -
 ros/ros.h
 -
@@ -52,9 +50,9 @@ geometry_msgs/Quaternion.h
 opencv2/opencv.hpp
 -
 Astar.h
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/Astar.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/Astar.h
 OccMapTransform.h
-/home/siddhesh/warehouse_sim/warehouse_dwa/src/Astar-ROS/src/OccMapTransform.h
+/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/Astar-ROS/src/OccMapTransform.h
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
 string

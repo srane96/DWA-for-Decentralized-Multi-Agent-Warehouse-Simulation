@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::warehouse_manager::Robot_Task_Request > {
   static const char* value()
   {
-    return "77322248a0582fccda2d5e89f799e25b";
+    return "36a9ef11aba4366f1c5c38340e3f6f3d";
   }
 
   static const char* value(const ::warehouse_manager::Robot_Task_Request&) { return value(); }

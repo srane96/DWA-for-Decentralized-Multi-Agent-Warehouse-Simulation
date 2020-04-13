@@ -1,23 +1,26 @@
 <launch>
 	<arg name="map_file" default="$(find dwa)/stage/AddverbMap.yaml"/>
-    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" ns="main"/>
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
 
     <node name="stage" pkg="stage_ros" type="stageros" args="$(find dwa)/stage/AddverbMap.world" />
-	<node name="central_server" pkg="dwa" type="central_server.py" output="screen" ns="server"/>
-
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0">
+        <param name="Euclidean" value="true"/>
+        <param name="OccupyThresh" value="-1"/>
+        <param name="InflateRadius" value="0.25"/>
+        <param name="rate" value="10"/>
+    </node>
 	<node name="rob0" pkg="dwa" type="rob.py" ns="robot_0" output="screen"/>
+	
 
+	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_1">
+        <param name="Euclidean" value="true"/>
+        <param name="OccupyThresh" value="-1"/>
+        <param name="InflateRadius" value="0.25"/>
+        <param name="rate" value="10"/>
+    </node>
 
 	<!--
-	<node pkg="astar" type="astar" name="astar" output="screen" ns="robot_0">
-		<param name="Euclidean" value="true"/>
-	        <param name="OccupyThresh" value="-1"/>
-	        <param name="InflateRadius" value="0.25"/>
-	        <param name="rate" value="10"/>
-    </node>
-	-->
-
 	<node name="rob1" pkg="dwa" type="rob.py" ns="robot_1" output="screen"/>
 	<node name="rob2" pkg="dwa" type="rob.py" ns="robot_2" output="screen"/>
 	<node name="rob3" pkg="dwa" type="rob.py" ns="robot_3" output="screen"/>
@@ -34,6 +37,7 @@
 	<node name="rob13" pkg="dwa" type="rob.py" ns="robot_13" output="screen"/>
 	<node name="rob14" pkg="dwa" type="rob.py" ns="robot_14" output="screen"/>
 	<node name="rob15" pkg="dwa" type="rob.py" ns="robot_15" output="screen"/>
+	
 	<node name="rob16" pkg="dwa" type="rob.py" ns="robot_16" output="screen"/>
 	<node name="rob17" pkg="dwa" type="rob.py" ns="robot_17" output="screen"/>
 	<node name="rob18" pkg="dwa" type="rob.py" ns="robot_18" output="screen"/>
@@ -126,5 +130,5 @@
 	<node name="rob97" pkg="dwa" type="rob.py" ns="robot_97" output="screen"/>
 	<node name="rob98" pkg="dwa" type="rob.py" ns="robot_98" output="screen"/>
 	<node name="rob99" pkg="dwa" type="rob.py" ns="robot_99" output="screen"/>
-
+	-->
 </launch>

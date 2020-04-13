@@ -67,14 +67,14 @@ set(warehouse_manager_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(warehouse_manager_SOURCE_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager)
-  set(warehouse_manager_DEVEL_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa/devel)
+  set(warehouse_manager_SOURCE_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager)
+  set(warehouse_manager_DEVEL_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa_final/devel)
   set(warehouse_manager_INSTALL_PREFIX "")
   set(warehouse_manager_PREFIX ${warehouse_manager_DEVEL_PREFIX})
 else()
   set(warehouse_manager_SOURCE_PREFIX "")
   set(warehouse_manager_DEVEL_PREFIX "")
-  set(warehouse_manager_INSTALL_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa/install)
+  set(warehouse_manager_INSTALL_PREFIX /home/siddhesh/warehouse_sim/warehouse_dwa_final/install)
   set(warehouse_manager_PREFIX ${warehouse_manager_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(warehouse_manager_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include;/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/include " STREQUAL " ")
+if(NOT "/home/siddhesh/warehouse_sim/warehouse_dwa_final/devel/include;/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/include " STREQUAL " ")
   set(warehouse_manager_INCLUDE_DIRS "")
-  set(_include_dirs "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include;/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/include")
+  set(_include_dirs "/home/siddhesh/warehouse_sim/warehouse_dwa_final/devel/include;/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/siddhesh/warehouse_sim/warehouse_dwa/devel/include;/home/siddhesh/
         message(FATAL_ERROR "Project 'warehouse_manager' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'warehouse_manager' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/siddhesh/warehouse_sim/warehouse_dwa/src/warehouse_manager/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'warehouse_manager' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/${idir}'.  ${_report}")
     endif()
     _list_append_unique(warehouse_manager_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib;/home/siddhesh/warehouse_sim/warehouse_dwa/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/siddhesh/warehouse_sim/warehouse_dwa_final/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

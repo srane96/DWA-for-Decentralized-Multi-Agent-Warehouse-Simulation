@@ -14,7 +14,7 @@ void EnvironmentMaster::init() {
   //Code block for reading robot task assignmnet from a text file
   robot_number_ = 0;
   robot_count_ = 0;
-  std::ifstream f("/home/krishna/Desktop/task100robot10.txt");
+  std::ifstream f("/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/task100robot10.txt");
   if(f.is_open()){
     while(f){
       std::string line;
@@ -61,23 +61,27 @@ void EnvironmentMaster::init() {
 //We are using this currently
 bool EnvironmentMaster::req_task(warehouse_manager::Robot_Task_Request::Request &req,
                     warehouse_manager::Robot_Task_Request::Response &res){
-                       ROS_INFO_STREAM("Goal Request arrived" << req.name);
+                       ROS_INFO_STREAM("Goal Request arrived " << req.name);
                        int robot_number = std::stoi(req.name);
                        std::tuple<int, int> temp_t;
                        if(robot_tasks_[robot_number].size() > 0){
                          temp_t = robot_tasks_[robot_number][robot_tasks_[robot_number].size() - 1];
                          res.x = std::get<0>(temp_t);
                          res.y = std::get<1>(temp_t);
+                         res.task_available = true;
                          robot_tasks_[robot_number].erase(robot_tasks_[robot_number].end());
                          return true;
                        }
                        else{
                          //Robot has finished all the tasks assigned to it.
                          //Add it to the report
+                         res.x = -1;
+                         res.y = -1;
+                         res.task_available = false;
                          add_to_report(robot_number);
                          robot_count_ --;
                          if(robot_count_ == 0) add_to_report(-1); 
-                         return false;
+                         return true;
                        }
                      }
 
@@ -85,6 +89,7 @@ bool EnvironmentMaster::req_task(warehouse_manager::Robot_Task_Request::Request 
 bool EnvironmentMaster::task_complete(
     warehouse_manager::Robot_Task_Complete::Request &req,
     warehouse_manager::Robot_Task_Complete::Response &res) {
+  ROS_INFO_STREAM("Goal completed by " << req.robot_name);
   int robot_number = std::stoi(req.robot_name);
   float time_taken  = req.time_taken;
   float shortest_distance = req.shortest_distance;
@@ -117,7 +122,7 @@ bool EnvironmentMaster::task_complete(
 void EnvironmentMaster::add_to_report(int robot_number)
 {
   std::ofstream outfile;
-  outfile.open("/home/krishna/Desktop/task100robot10_report.txt", std::ios_base::app);
+  outfile.open("/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/task100robot10_report.txt", std::ios_base::app);
   if(robot_number > 0)
   {
     outfile << "\n" << "\n";
