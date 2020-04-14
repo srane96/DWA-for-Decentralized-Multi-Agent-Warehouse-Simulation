@@ -28,5 +28,5 @@ Following is the folder structure
 
 Current functionality of `EnvironmentMaster` class:
 
-* Hosts a service called `request_available_task` to assign tasks(goals) to the robot requesting for goals which has (request: <string>name of robot (eg. 0, 1, .., n) response: <float> x , <float> y)
+* Hosts a service called `request_available_task` to assign tasks(goals) to the robot requesting for goals which has (request: <string>name of robot (eg. 0, 1, .., n) response: <float> x , <float> y, <bool> task_available)
 * Hosts a service called `report_task_complete` to store the time taken and min_distance to goal by robot which has (request: <string>name of robot (eg. 0, 1, .., n) , <float>time, <float>distance)

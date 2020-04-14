@@ -1,5 +1,6 @@
 #include <fstream>
 #include <warehouse_manager/environment_master.h>
+#include <std_msgs/Int32.h>
 #include "nav_msgs/OccupancyGrid.h"
 
 EnvironmentMaster::EnvironmentMaster() {
@@ -14,7 +15,7 @@ void EnvironmentMaster::init() {
   //Code block for reading robot task assignmnet from a text file
   robot_number_ = 0;
   robot_count_ = 0;
-  std::ifstream f("/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/task100robot10.txt");
+  std::ifstream f("/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/task1000robot100.txt");
   if(f.is_open()){
     while(f){
       std::string line;
@@ -32,7 +33,6 @@ void EnvironmentMaster::init() {
           else if (i == 2) robot_y = std::stoi(temp);
         }
         std::tuple<int, int> temp_t(robot_x, robot_y);
-        if(robot == 1) robot = 10;
         if(robot_tasks_.find(robot) == robot_tasks_.end()){
           std::vector<std::tuple<int, int>> v;
           v.push_back(temp_t);
@@ -54,14 +54,13 @@ void EnvironmentMaster::init() {
   request_available_task = this->n_.advertiseService(
       "request_available_task", &EnvironmentMaster::req_task, this);
 
-    
 }
 
 
 //We are using this currently
 bool EnvironmentMaster::req_task(warehouse_manager::Robot_Task_Request::Request &req,
-                    warehouse_manager::Robot_Task_Request::Response &res){
-                       ROS_INFO_STREAM("Goal Request arrived " << req.name);
+                     warehouse_manager::Robot_Task_Request::Response &res){
+                       ROS_INFO_STREAM("Goal Request arrived" << req.name);
                        int robot_number = std::stoi(req.name);
                        std::tuple<int, int> temp_t;
                        if(robot_tasks_[robot_number].size() > 0){
@@ -89,7 +88,6 @@ bool EnvironmentMaster::req_task(warehouse_manager::Robot_Task_Request::Request 
 bool EnvironmentMaster::task_complete(
     warehouse_manager::Robot_Task_Complete::Request &req,
     warehouse_manager::Robot_Task_Complete::Response &res) {
-  ROS_INFO_STREAM("Goal completed by " << req.robot_name);
   int robot_number = std::stoi(req.robot_name);
   float time_taken  = req.time_taken;
   float shortest_distance = req.shortest_distance;
@@ -154,6 +152,17 @@ void EnvironmentMaster::add_to_report(int robot_number)
     }
     outfile << "\n" << "\n";
     outfile << "Total- "  << " Time: " << total_time << " Distance: " << total_distance << "\n";
+
+    //Print the number of collisions
+    boost::shared_ptr<std_msgs::Int32 const> shared_count;
+    std_msgs::Int32 col_count;
+    shared_count = ros::topic::waitForMessage<std_msgs::Int32>("/collisions",this->n_);
+    if(shared_count != NULL)
+    {
+      col_count = *shared_count;
+    }
+    outfile << "\n";
+    outfile << "Total number of collisions: " << col_count.data << "\n";
   }
   outfile.close();
 }

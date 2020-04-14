@@ -1,17 +1,2 @@
 
 
-Time timae and distance: 
-Robot: 10 Time: 0 Distance: 3.3154e+27
-Robot: 9 Time: 0 Distance: 3.3154e+27
-Robot: 8 Time: 0 Distance: 3.3154e+27
-Robot: 7 Time: 0 Distance: 3.3154e+27
-Robot: 6 Time: 0 Distance: 3.3154e+27
-Robot: 5 Time: 0 Distance: 3.3154e+27
-Robot: 4 Time: 0 Distance: 3.3154e+27
-Robot: 3 Time: 0 Distance: 3.3154e+27
-Robot: 2 Time: 0 Distance: 3.3154e+27
-Robot: 1 Time: 0 Distance: 3.3154e+27
-Robot: 0 Time: 2341.65 Distance: 3.3154e+27
-
-
-Total-  Time: 2341.65 Distance: 3.64694e+28

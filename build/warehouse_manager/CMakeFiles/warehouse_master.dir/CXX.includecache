@@ -147,6 +147,8 @@ fstream
 -
 warehouse_manager/environment_master.h
 -
+std_msgs/Int32.h
+-
 nav_msgs/OccupancyGrid.h
 /home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/src/nav_msgs/OccupancyGrid.h
 
@@ -1133,6 +1135,22 @@ ros/forwards.h
 /opt/ros/kinetic/include/rosconsole/macros_generated.h
 
 /opt/ros/kinetic/include/std_msgs/Header.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/kinetic/include/std_msgs/Int32.h
 string
 -
 vector

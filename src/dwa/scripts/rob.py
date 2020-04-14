@@ -3,19 +3,14 @@ import rospy
 import math
 import numpy as np
 from geometry_msgs.msg import Twist, PointStamped, PoseWithCovarianceStamped, PoseStamped
-from nav_msgs.msg import Odometry, Path
+from nav_msgs.msg import Odometry, Path, OccupancyGrid
 from sensor_msgs.msg import LaserScan
 from tf.transformations import euler_from_quaternion
 import time
 from dwa.srv import GoalRequest, GoalRequestRequest, GoalCompletion, GoalCompletionRequest
 from warehouse_manager.srv import Robot_Task_Request, Robot_Task_Complete
+import cv2
 
-'''
-BOT_NAME = 'r0'
-ODOM_TOPIC = "/robot_0/base_pose_ground_truth"
-LASER_TOPIC = "/robot_0/base_scan"
-CMD_VEL = "/robot_0/cmd_vel"
-'''
 ns = rospy.get_namespace()
 BOT_NAME = ns[7:len(ns)-1]
 ODOM_TOPIC = ns + "base_pose_ground_truth"
@@ -42,7 +37,7 @@ class Config():
         self.max_yawrate = 1.0  # [rad/s]
         self.max_accel = 1.5  # [m/ss]
         self.max_dyawrate = 3.2  # [rad/ss]
-        self.v_reso = 0.10  # [m/s]
+        self.v_reso = 0.5  # [m/s]
         self.yawrate_reso = 1.5  # [rad/s]
         self.dt = 0.5  # [s]
         self.predict_time = 1.5  # [s]
@@ -73,6 +68,10 @@ class Config():
         self.distance_x = 0.0
         self.distance_y = 0.0
         self.path_received = False
+        #self._sub = rospy.Subscriber('/map', OccupancyGrid, self.getMap, queue_size=1)
+        self.aux_stall_count = 0
+        
+
     # Callback for Odometry
     def assignOdomCoords(self, msg):
         # X- and Y- coords and pose of robot fed back into the robot config
@@ -93,17 +92,19 @@ class Config():
 
     def astarPath(self, msg):
         if not self.path_received: 
-            print("Path received: ", len(msg.poses))
+            print("Path received: ", len(msg.poses), " by ", BOT_NAME)
             del self.path[:]
             for p in msg.poses:
                 self.path.append([p.pose.position.x, p.pose.position.y])
-            print("Path ", len(self.path))
-            del self.path[0:20]
+            #print("Path ", self.path)
+            del self.path[0:2]
             self.goalX = self.path[0][0]
             self.goalY = self.path[0][1]
             #print("Goal: ", self.goalX, " ", self.goalY)
             self.path_received = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
+
+
     def goalCB(self,msg):
         self.goalX = msg.point.x
         self.goalY = msg.point.y
@@ -350,7 +351,7 @@ def dwa_control(x, u, config, ob):
 def atGoal(config, x):
     # check at goal
     if math.sqrt((x[0] - config.goalX)**2 + (x[1] - config.goalY)**2) \
-        <= config.robot_radius * 2.0:
+        <= config.robot_radius * 1.25:
         return True
     return False
 
@@ -378,6 +379,7 @@ def main():
     u = np.array([0.0, 0.0])
     # runs until terminated externally
     while not rospy.is_shutdown():
+        #print("Aux", config.aux_stall_count)
         if (atGoal(config,x) == False):
             #start_time = time.time()
             u = dwa_control(x, u, config, obs.obst)
@@ -395,20 +397,34 @@ def main():
                 config.stall_count = 0
 
             pose_stamped.header.stamp = rospy.Time.now() 
-            pose_stamped.pose.pose.position.x = config.x 
+            pose_stamped.pose.pose.position.x = config.x
             pose_stamped.pose.pose.position.y = config.y 
             pose_stamped.pose.pose.position.z = 0.0
 
+
+            config.aux_stall_count += 1
+            if config.aux_stall_count > 1000:
+                if len(config.path) > 2:
+                    del config.path[0:2]
+                    config.goalX = config.path[0][0]
+                    config.goalY = config.path[0][1]
+                else:
+                    config.goalX = config.goalFinalX
+                    config.goalY = config.goalFinalY
+                print("GoalAdj: ", config.goalX, " ", config.goalY)
+                config.aux_stall_count = 0
+
         else:
             # Waypoint reached
+            config.aux_stall_count = 0
             if len(config.path) != 0:
                 config.goalX = config.path[0][0]
                 config.goalY = config.path[0][1]
-                print("Goalllll: ", config.goalX, " ", config.goalY)
-                if len(config.path) < 30:
+                #print("Goalllll: ", config.goalX, " ", config.goalY)
+                if len(config.path) < 2:
                     config.goalX = config.goalFinalX
                     config.goalY = config.goalFinalY
-                del config.path[0:30]
+                del config.path[0:2]
 
             else:
                 # if at goal then stay there until new goal published
@@ -431,21 +447,20 @@ def main():
             if goalCoord.task_available:
 
                 # send goal and current position to the Astar planner
-                print("publishing to ", INI_POS)
-                print("publishing goal to", GOAL_POS)
+                #print("publishing to ", INI_POS)
+                #print("publishing goal to", GOAL_POS)
 
 
-                config.goalX = goalCoord.x #- config.orig_x
-                config.goalY = goalCoord.y #- config.orig_y
+                config.goalX = int(goalCoord.x * 1) #- config.orig_x
+                config.goalY = int(goalCoord.y * 1)#- config.orig_y
                 config.busy = True
 
                 config.goalFinalX = config.goalX
                 config.goalFinalY = config.goalY
-
                 
                 goal_stamped.header.stamp = rospy.Time.now()
-                goal_stamped.pose.position.x = goalCoord.x #config.goalX 
-                goal_stamped.pose.position.y = goalCoord.y #config.goalY
+                goal_stamped.pose.position.x = config.goalFinalX #config.goalX 
+                goal_stamped.pose.position.y = config.goalFinalY #config.goalY
                 goal_stamped.pose.position.z = 0.0
                 
 

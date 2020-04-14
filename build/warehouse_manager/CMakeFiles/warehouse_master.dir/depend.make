@@ -78,6 +78,7 @@ warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: 
 warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/ros/wall_timer_options.h
 warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
+warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/std_msgs/Int32.h
 warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 warehouse_manager/CMakeFiles/warehouse_master.dir/src/environment_master.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
 
