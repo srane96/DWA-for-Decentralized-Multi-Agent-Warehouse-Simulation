@@ -1,2 +1,0 @@
-set(warehouse_manager_MESSAGE_FILES "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/TaskInfo.msg;/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/msg/RobotInfo.msg")
-set(warehouse_manager_SERVICE_FILES "/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Complete.srv;/home/siddhesh/warehouse_sim/warehouse_dwa_final/src/warehouse_manager/srv/Robot_Task_Request.srv")
