@@ -41,9 +41,9 @@ class Config():
         self.yawrate_reso = 1.5  # [rad/s]
         self.dt = 0.5  # [s]
         self.predict_time = 1.5  # [s]
-        self.to_goal_cost_gain = 2.0 #lower = detour
+        self.to_goal_cost_gain = 2.5 #lower = detour
         self.speed_cost_gain = 0.1 #lower = faster
-        self.obs_cost_gain = 10.0 #lower z= fearless
+        self.obs_cost_gain = 8.0 #lower z= fearless
         self.robot_radius = 0.60  # [m]
         self.x = 0.0
         self.y = 0.0
@@ -70,7 +70,10 @@ class Config():
         self.path_received = False
         #self._sub = rospy.Subscriber('/map', OccupancyGrid, self.getMap, queue_size=1)
         self.aux_stall_count = 0
-        
+        self.mapimg = None
+        self.mapreceived = False
+        self.obstacle_space = []
+        self.final_assigned = False
 
     # Callback for Odometry
     def assignOdomCoords(self, msg):
@@ -97,13 +100,28 @@ class Config():
             for p in msg.poses:
                 self.path.append([p.pose.position.x, p.pose.position.y])
             #print("Path ", self.path)
-            del self.path[0:2]
-            self.goalX = self.path[0][0]
-            self.goalY = self.path[0][1]
+            if len(self.path) > 2:
+                del self.path[0:2]
+                self.goalX = self.path[0][0]
+                self.goalY = self.path[0][1]
+                #print("Path", self.path)
             #print("Goal: ", self.goalX, " ", self.goalY)
             self.path_received = True
+            self.mapreceived = True
     # Callback for attaining goal co-ordinates from Rviz Publish Point
+    '''
+    def getMap(self, msg):
+        #sprint("Mappa ", len(msg.data))
+        height = msg.info.height
+        width = msg.info.width
 
+        self.mapimg = np.ones((height, width,3), dtype=np.float)
+        self.mapreceived = True
+        for i in range(0, len(msg.data)):
+            if msg.data[i] == 100 or msg.data[i] == -1:
+                self.mapimg[i/width, i%width] = (0,0,0)
+                self.obstacle_space.append([int(i/width), int(i%width)])
+    '''
 
     def goalCB(self,msg):
         self.goalX = msg.point.x
@@ -391,11 +409,7 @@ def main():
             x[4] = u[1]
             speed.linear.x = x[3]
             speed.angular.z = x[4]
-            if config.stall_count >= 100:
-                goalComplete = config.goalCompleteRequest(BOT_NAME,0.0, 0.0)
-                config.canSendCompletionRequest = False
-                config.stall_count = 0
-
+        
             pose_stamped.header.stamp = rospy.Time.now() 
             pose_stamped.pose.pose.position.x = config.x
             pose_stamped.pose.pose.position.y = config.y 
@@ -403,7 +417,7 @@ def main():
 
 
             config.aux_stall_count += 1
-            if config.aux_stall_count > 1000:
+            if config.aux_stall_count > 800:
                 if len(config.path) > 2:
                     del config.path[0:2]
                     config.goalX = config.path[0][0]
@@ -411,8 +425,25 @@ def main():
                 else:
                     config.goalX = config.goalFinalX
                     config.goalY = config.goalFinalY
-                print("GoalAdj: ", config.goalX, " ", config.goalY)
+                    config.final_assigned = True
+
+                #print("GoalAdj: ", config.goalX, " ", config.goalY)
+                if not config.final_assigned:
+                    config.aux_stall_count = 0
+
+            if config.aux_stall_count > 10000:
+                # situation is hopeless
+                print("it's hopeless")
                 config.aux_stall_count = 0
+                config.start_assigned = False
+                config.final_assigned = False
+                config.busy = False
+                config.job_end = time.time()
+                if config.canSendCompletionRequest:
+                    final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
+                    goalComplete = config.goalCompleteRequest(BOT_NAME,config.job_end - config.job_start, final_dist)
+                    config.canSendCompletionRequest = False
+
 
         else:
             # Waypoint reached
@@ -432,6 +463,7 @@ def main():
                 speed.linear.x = 0.0
                 speed.angular.z = 0.0
                 config.start_assigned = False
+                config.final_assigned = False
                 config.busy = False
                 if config.canSendCompletionRequest:
                     final_dist = np.sqrt((config.goalX - config.start_x)**2 + (config.goalY - config.start_y)**2)
@@ -468,6 +500,7 @@ def main():
                 config.canSendCompletionRequest = True
                 config.job_start = time.time()
                 config.path_received = False
+                config.mapreceived = True
                 print("Goal x:", config.goalX, "Goal y:", config.goalY)
             else:
                 disp = BOT_NAME + " is Done"
@@ -483,7 +516,7 @@ def main():
         if not config.path_received:
             pub_init.publish(pose_stamped)
             pub_goal.publish(goal_stamped)
-        
+
         #print("X: ", config.x, " Y: ", config.y)
         config.r.sleep()
 

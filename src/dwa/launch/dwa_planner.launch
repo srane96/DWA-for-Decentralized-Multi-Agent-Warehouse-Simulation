@@ -30,12 +30,11 @@
 	<node pkg="astar" type="astar" name="astar" ns="robot_8" />
 	<node name="rob8" pkg="dwa" type="rob.py" ns="robot_8" output="screen"/>
 
-	<node pkg="astar" type="astar" name="astar" ns="robot_99" />
-	<node name="rob99" pkg="dwa" type="rob.py" ns="robot_99" output="screen"/>
+	<node pkg="astar" type="astar" name="astar" ns="robot_9" />
+	<node name="rob9" pkg="dwa" type="rob.py" ns="robot_9" output="screen"/>
 
 	<node pkg="warehouse_manager" type="warehouse_master" name="warehouse_master" />
 	<!--
-
 
 	<node name="rob1" pkg="dwa" type="rob.py" ns="robot_1" output="screen"/>
 	<node name="rob2" pkg="dwa" type="rob.py" ns="robot_2" output="screen"/>
